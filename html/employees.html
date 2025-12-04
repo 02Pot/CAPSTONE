@@ -5,8 +5,129 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Employees</title>
     <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .container {
+        display: flex;           
+        height: 100vh;          
+        }
+        .main-content {
+        flex: 1;               
+        padding: 30px;
+        }
+        /* Add Button */
+        .btn-add {
+         background-color: #6DC4D7;
+         color: white;
+         border: 1px solid black;  
+         padding: 10px 20px;
+         border-radius: 3px;
+         cursor: pointer;  
+         }
+
+        .btn-add:hover {
+         background-color: #519eaf;
+        }
+
+        /* Edit Button */
+        .btn-edit {
+         background-color: #6DC4D7;
+         color: white;
+         border: 1px solid black;  
+         padding: 10px 20px;
+         border-radius: 3px;
+         cursor: pointer;
+        }
+
+        .btn-edit:hover {
+         background-color: #519eaf;
+        } 
+
+        /* Icon size */
+        .btn-add i, .btn-edit i {
+         font-size: 14px;
+         padding: 4px;
+         }
+
+    
+         /* table */
+         /* MAIN WRAPPER */
+        .emp-table-wrapper {
+         background: white;
+         padding: 25px;
+         border: 1px solid #000;  /* Black border */
+         border-radius: 10px;
+         margin-top: 20px;
+         }
+ 
+        /* HEADER: LEFT (title) + RIGHT (search bar) */
+        .emp-table-header {
+        display: flex;
+        justify-content: space-between; /* left + right */
+        align-items: center;
+        margin-bottom: 10px;
+        }
+
+        /* TITLE */
+        .emp-table-title {
+        font-size: 22px;
+        font-weight: 700;
+        margin: 0;
+        padding: 0;
+        }
+
+        /* SEARCH BAR */
+        .emp-search-box input {
+        padding: 8px 14px;
+        border: 2px solid #000; /* consistent black border */
+        border-radius: 6px;
+        font-size: 14px;
+        width: 230px;
+        outline: none;
+        }
+
+        /* SEARCH BAR HOVER/FOCUS */
+        .emp-search-box input:focus {
+        border-color: #0077ff;
+        }
+
+        /* DIVIDER LINE BELOW HEADER */
+        .emp-divider {
+        width: 100%;
+        height: 1px;
+        background: #00000030; /* light grey */
+        margin: 10px 0 15px 0;
+       }
+
+       /* TABLE */
+       .emp-table {
+        width: 100%;
+        border-collapse: collapse;
+        }
+
+       .emp-table thead th {
+        text-align: left;
+        padding-bottom: 10px;
+        font-size: 14px;
+        font-weight: 600;
+        }
+
+        .emp-table tbody td {
+        padding: 10px 0;
+        font-size: 14px;
+       }
+
+       .emp-more-btn {
+       border: none;
+       background: none;
+       font-size: 20px;
+       cursor: pointer;
+       }
+     </style>
 </head>
 <body>
+
+<div class="container">
 
 <div class="sidebar">
     <div class="logo">
@@ -34,13 +155,73 @@
         </a>
     </div>
 </div>
-<div class="nav">
-    <h1>Employees</h1>
-    <ul>
-        <li>John Doe</li>
-    </ul>
+
+<div class="main-content">
+
+    <div class="class">
+        <h1>Employees</h1>
+    </div>
+
+    <div class="button-group">
+        <button class="btn-add">
+            <span>Add Employee Records</span>
+            <i class="fas fa-plus"></i>
+        </button>
+        
+        <button class="btn-edit">
+            <span>Edit Employee Records</span>
+            <i class="fas fa-edit"></i>
+        </button>
+    </div>
+
+
+
+  <!-- TABLE SECTION -->   
+<div class="emp-table-wrapper">
+
+    <div class="emp-table-header">
+        <h2 class="emp-table-title">Employee details</h2>
+
+        <div class="emp-search-box">
+            <input type="text" placeholder="Search employee">
+        </div>
+    </div>
+
+    <div class="emp-divider"></div>
+
+    <table class="emp-table">
+        <thead>
+            <tr>
+                <th>Full Name</th>
+                <th>Contact</th>
+                <th>Email</th>
+                <th>Gender</th>
+                <th>Position</th>
+                <th>Department</th>
+                <th>More Details</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr><td>Ibay, Kier Aldwin</td><td>09932343242</td><td>Kaibay@pateros</td><td>Male</td><td>Part-Time-Job</td><td>Maintenance</td><td><button class="emp-more-btn">...</button></td></tr>
+            <tr><td>Ibay, Kier Aldwin</td><td>09542342425</td><td>Rmondejar@pateros</td><td>Male</td><td>Part-Time-Job</td><td>Development</td><td><button class="emp-more-btn">...</button></td></tr>
+            <tr><td>Ibay, Kier Aldwin</td><td>09523234226</td><td>Jvaron@pateros</td><td>Male</td><td>Part-Time-Job</td><td>Development</td><td><button class="emp-more-btn">...</button></td></tr>
+            <tr><td>Ibay, Kier Aldwin</td><td>09932343242</td><td>Kaibay@pateros</td><td>Male</td><td>Part-Time-Job</td><td>Maintenance</td><td><button class="emp-more-btn">...</button></td></tr>
+            <tr><td>Ibay, Kier Aldwin</td><td>09542342425</td><td>Rmondejar@pateros</td><td>Male</td><td>Part-Time-Job</td><td>Development</td><td><button class="emp-more-btn">...</button></td></tr>
+            <tr><td>Ibay, Kier Aldwin</td><td>09523234226</td><td>Jvaron@pateros</td><td>Male</td><td>Part-Time-Job</td><td>Development</td><td><button class="emp-more-btn">...</button></td></tr>
+            <tr><td>Ibay, Kier Aldwin</td><td>09932343242</td><td>Kaibay@pateros</td><td>Male</td><td>Part-Time-Job</td><td>Maintenance</td><td><button class="emp-more-btn">...</button></td></tr>
+            <tr><td>Ibay, Kier Aldwin</td><td>09542342425</td><td>Rmondejar@pateros</td><td>Male</td><td>Part-Time-Job</td><td>Development</td><td><button class="emp-more-btn">...</button></td></tr>
+            <tr><td>Ibay, Kier Aldwin</td><td>09523234226</td><td>Jvaron@pateros</td><td>Male</td><td>Part-Time-Job</td><td>Development</td><td><button class="emp-more-btn">...</button></td></tr>
+             <tr><td>Ibay, Kier Aldwin</td><td>09932343242</td><td>Kaibay@pateros</td><td>Male</td><td>Part-Time-Job</td><td>Maintenance</td><td><button class="emp-more-btn">...</button></td></tr>
+            <tr><td>Ibay, Kier Aldwin</td><td>09542342425</td><td>Rmondejar@pateros</td><td>Male</td><td>Part-Time-Job</td><td>Development</td><td><button class="emp-more-btn">...</button></td></tr>
+            <tr><td>Ibay, Kier Aldwin</td><td>09523234226</td><td>Jvaron@pateros</td><td>Male</td><td>Part-Time-Job</td><td>Development</td><td><button class="emp-more-btn">...</button></td></tr>
+        </tbody>
+    </table>
+
 </div>
 
+</div>
+
+</div>
 
 <script src="/javascript/script.js"></script>
 </body>
