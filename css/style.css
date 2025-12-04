@@ -1,0 +1,73 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    display: flex;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 200px;
+    height: 100vh;
+    background: #ffffff;
+    border-right: 1px solid #e5e5e5;
+    padding-top: 20px;
+    text-align: left;
+}
+
+/* Logo */
+.logo {
+    text-align: center;
+}
+
+.logo img {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    margin-bottom: 10px;
+}
+
+/* Menu Title */
+.menu-title {
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    margin: 10px 0 20px 0;
+    color: #000;
+}
+
+/* Menu List */
+.menu-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.menu-item {
+    padding: 12px 20px;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    color: #000;
+    text-decoration: none;
+}
+
+.menu-list li .icon {
+    margin-right: 8px;
+}
+
+/* Active item */
+.menu-item:hover {
+    background: #003c0f;
+    color: white;
+    border-radius: 5px;
+    font-weight: bold;
+}
+.nav {
+    flex-grow: 1;
+    padding: 10px;
+    margin-left: 20px;
+    font-family: Poppins, sans-serif;
+}
+/* Sub text */
+
