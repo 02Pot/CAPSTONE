@@ -15,32 +15,85 @@
     <div class="logo">
         <img src="/assets/logo-ptc.png" alt="Logo">
     </div>
-
     <p class="menu-title">Menu</p>
-
     <div class="menu-list">
-
         <a href="../index.html" class="menu-item">
             <span class="icon">📊</span> DASHBOARD
         </a>
-
         <a href="../html/payroll.html" class="menu-item">
             <span class="icon">📊</span> PAYROLL
         </a>
-
         <a href="../html/employees.html" class="menu-item">
             <span class="icon">👥</span> EMPLOYEES
         </a>
-
         <a href="../html/reports.html" class="menu-item">
             <span class="icon">📁</span> REPORTS
         </a>
-        
-
     </div>
 </div>
+
 <div class="main-content">
 
+<!--PAYROLL POP-UP-->
+<dialog id="payroll-dialog">
+<div class="payslip-container">
+    <div class="header">
+        <img src="/assets/logo-ptc.png" alt="Logo">
+        <div class="title">Pateros Technological College</div>
+        <div class="subtitle">Payslip</div>
+    </div>
+
+    <div class="employee-info">
+        <div>
+            <span class="info-label">Employee Name:</span> Varon Jomar<br>
+            <span class="info-label">Worked Hours:</span> 35<br>
+            <span class="info-label">Overtime Hours:</span> 5<br>
+            <span class="info-label">Employee Rate:</span> 150
+        </div>
+        <div>
+            <span class="info-label">Date of Joining:</span> January 2 2003<br>
+            <span class="info-label">Employee Type:</span> Part-Time<br>
+            <span class="info-label">Department:</span> Office Staff<br>
+            <span class="info-label">Pay Period:</span> November 1-15 2025
+        </div>
+    </div>
+
+    <div class="pay-details">
+        <div>
+            <div class="section-title">Earnings</div>
+            <table>
+                <tr><td class="label-col">Basic Rate</td><td class="amount-col">5250</td></tr>
+                <tr><td class="label-col">Overtime</td><td class="amount-col">250</td></tr>
+                <tr class="total-row">
+                    <td class="label-col">Gross Pay</td>
+                    <td class="amount-col">5500</td>
+                </tr>
+            </table>
+        </div>
+        <div>
+            <div class="section-title">Deductions</div>
+            <table>
+                <tr><td class="label-col">&nbsp;</td><td class="amount-col"></td></tr>
+                <tr><td class="label-col">Tax</td><td class="amount-col">100</td></tr>
+                <tr class="total-row">
+                    <td class="label-col">Total Deductions</td>
+                    <td class="amount-col">100</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="netpay">
+        Total Net Pay: 5400
+    </div>
+    <div class="footer">
+        This is a system generated payslip
+    </div>
+    <div class="dialog-button">
+        <button id="dialog-button-cancel" onclick=closePayrollDialog()>Cancel</button>
+        <button id="dialog-button-email">Send to Email</button>
+    </div>
+</div>
+</dialog>
 
 <table class="payroll-table">
     <thead>
@@ -52,16 +105,16 @@
             <th>Payslip</th>
         </tr>
     </thead>
-
     <tbody>
         <tr>
             <td>Jhomar Varon</td>
             <td>varonjhomar@paterostechnologicalcollege.edu.ph</td>
             <td>09276436271</td>
-            <td>Regular</td>
-            <td><a href="#" class="view-link">View</a></td>
+            <td>Part-Time</td>
+            <td><a href="#" onclick=showPayrollDialog() class="view-link">View</a></td>
+        </div>
+    </div>
         </tr>
-
         <tr>
             <td>Richard Mondejar</td>
             <td>mondejarrichard@paterostechnologicalcollege.edu.ph</td>
@@ -69,7 +122,6 @@
             <td>Regular</td>
             <td><a href="#" class="view-link">View</a></td>
         </tr>
-
         <tr>
             <td>Aaron Nacion</td>
             <td>nacionaaron@paterostechnologicalcollege.edu.ph</td>
@@ -77,7 +129,6 @@
             <td>Regular</td>
             <td><a href="#" class="view-link">View</a></td>
         </tr>
-
         <tr>
             <td>Kier Aldwin Ibay</td>
             <td>ibaykieraldwin@paterostechnologicalcollege.edu.ph</td>
@@ -85,7 +136,6 @@
             <td>Regular</td>
             <td><a href="#" class="view-link">View</a></td>
         </tr>
-
         <tr>
             <td>John Lee Valencia</td>
             <td>valenciajohnlee@paterostechnologicalcollege.edu.ph</td>
@@ -93,7 +143,6 @@
             <td>Regular</td>
             <td><a href="#" class="view-link">View</a></td>
         </tr>
-        
         <tr>
             <td>Maria Santos</td>
             <td>mariasantos@paterostechnologicalcollege.edu.ph</td>
@@ -101,7 +150,6 @@
             <td>Regular</td>
             <td><a href="#" class="view-link">View</a></td>
         </tr>
-
         <tr>
             <td>Carlos Ramirez</td>
             <td>carlosramirez@paterostechnologicalcollege.edu.ph</td>
@@ -109,7 +157,6 @@
             <td>Regular</td>
             <td><a href="#" class="view-link">View</a></td>
         </tr>
-
         <tr>
             <td>Angela Cruz</td>
             <td>angelacruz@paterostechnologicalcollege.edu.ph</td>
@@ -117,7 +164,6 @@
             <td>Regular</td>
             <td><a href="#" class="view-link">View</a></td>
         </tr>
-
         <tr>
             <td>Michael Lorenzo</td>
             <td>michaellorenzo@paterostechnologicalcollege.edu.ph</td>
@@ -125,7 +171,6 @@
             <td>Regular</td>
             <td><a href="#" class="view-link">View</a></td>
         </tr>
-
         <tr>
             <td>Sophia Dela Peña</td>
             <td>sophiadelapena@paterostechnologicalcollege.edu.ph</td>
@@ -133,7 +178,6 @@
             <td>Regular</td>
             <td><a href="#" class="view-link">View</a></td>
         </tr>
-
         <tr>
             <td>Mark Anthony Villanueva</td>
             <td>markvillanueva@paterostechnologicalcollege.edu.ph</td>
@@ -141,7 +185,6 @@
             <td>Regular</td>
             <td><a href="#" class="view-link">View</a></td>
         </tr>
-
         <tr>
             <td>Katrina Gomez</td>
             <td>katrinagomez@paterostechnologicalcollege.edu.ph</td>
@@ -149,7 +192,6 @@
             <td>Regular</td>
             <td><a href="#" class="view-link">View</a></td>
         </tr>
-
         <tr>
             <td>Jerome Castillo</td>
             <td>jeromecastillo@paterostechnologicalcollege.edu.ph</td>
@@ -157,7 +199,6 @@
             <td>Regular</td>
             <td><a href="#" class="view-link">View</a></td>
         </tr>
-
         <tr>
             <td>Alyssa Tan</td>
             <td>alyssatan@paterostechnologicalcollege.edu.ph</td>
@@ -165,7 +206,6 @@
             <td>Regular</td>
             <td><a href="#" class="view-link">View</a></td>
         </tr>
-
         <tr>
             <td>Raymond Bautista</td>
             <td>raymondbautista@paterostechnologicalcollege.edu.ph</td>
@@ -173,12 +213,21 @@
             <td>Regular</td>
             <td><a href="#" class="view-link">View</a></td>
         </tr>
-
     </tbody>
 </table>
 </div>
 </div>
 
-<script src="/javascript/script.js"></script>
+    <script>
+        const dialog = document.getElementById("payroll-dialog")
+        function showPayrollDialog(){
+            dialog.showModal()
+        }
+        function closePayrollDialog(){
+            dialog.close()
+        }
+    </script>
+    
+<script src="../javascript/script.js"></script>
 </body>
 </html>
