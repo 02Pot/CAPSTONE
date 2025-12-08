@@ -1,80 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Employees</title>
-    <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="/css/employees.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-</head>
-<body>
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/employees.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <div class="sidebar">
+        <div class="logo">
+          <img src="/assets/logo-ptc.png" alt="Logo" />
+        </div>
 
-<div class="container">
+        <p class="menu-title">Menu</p>
 
-<div class="sidebar">
-    <div class="logo">
-        <img src="/assets/logo-ptc.png" alt="Logo">
-    </div>
-
-    <p class="menu-title">Menu</p>
-
-    <div class="menu-list">
-
-        <a href="#" class="menu-item">
+        <div class="menu-list">
+          <a href="../index.html" class="menu-item">
             <span class="icon">📊</span> DASHBOARD
-        </a>
+          </a>
 
-        <a href="#" class="menu-item">
+          <a href="#" class="menu-item">
             <span class="icon">📊</span> PAYROLL
-        </a>
+          </a>
 
-        <a href="#" class="menu-item">
+          <a href="../html/employees.html" class="menu-item">
             <span class="icon">👥</span> EMPLOYEES
-        </a>
+          </a>
 
-        <a href="#" class="menu-item">
+          <a href="#" class="menu-item">
             <span class="icon">📁</span> REPORTS
-        </a>
-    </div>
-</div>
+          </a>
+        </div>
+      </div>
 
-<div class="main-content">
+      <div class="main-content">
+        <div class="class">
+          <h1>Employees</h1>
+        </div>
 
-    <div class="class">
-        <h1>Employees</h1>
-    </div>
-
-    <div class="button-group">
-        <button id="addEmployeeBtn" class="btn-add">
+        <div class="button-group">
+          <button id="addEmployeeBtn" class="btn-add">
             <span>Add Employee Records</span>
             <i class="fas fa-plus"></i>
-        </button>
-        
-        <button id="editEmployeeBtn"class="btn-edit">
+          </button>
+
+          <button id="editEmployeeBtn" class="btn-edit">
             <span>Edit Employee Records</span>
             <i class="fas fa-edit"></i>
-        </button>
-    </div>
-
-
-
-  <!-- TABLE SECTION -->   
-<div class="emp-table-wrapper">
-
-    <div class="emp-table-header">
-        <h2 class="emp-table-title">Employee details</h2>
-
-        <div class="emp-search-box">
-            <input type="text" placeholder="Search employee">
+          </button>
         </div>
-    </div>
 
-    <div class="emp-divider"></div>
+        <!-- TABLE SECTION -->
+        <div class="emp-table-wrapper">
+          <div class="emp-table-header">
+            <h2 class="emp-table-title">Employee details</h2>
 
-    <table class="emp-table">
-        <thead>
-            <tr>
+            <div class="emp-search-box">
+              <input type="text" placeholder="Search employee" />
+            </div>
+          </div>
+
+          <div class="emp-divider"></div>
+
+          <table class="emp-table">
+            <thead>
+              <tr>
                 <th>Full Name</th>
                 <th>Contact</th>
                 <th>Email</th>
@@ -82,190 +78,404 @@
                 <th>Position</th>
                 <th>Department</th>
                 <th>More Details</th>
-            </tr>
-        </thead>
-<tbody>
-    <tr>
-        <td>Ibay, Kier Aldwin</td>
-        <td>09171234567</td>
-        <td>jdelacruz@pateros</td>
-        <td>Male</td>
-        <td>Full-Time</td>
-        <td>Maintenance</td>
-        <td><button class="emp-more-btn">...</button></td>
-    </tr>
-    <tr>
-        <td>Mondejar, Richard</td>
-        <td>09182345678</td>
-        <td>rmondejar@pateros</td>
-        <td>Male</td>
-        <td>Part-Time</td>
-        <td>Administration</td>
-        <td><button class="emp-more-btn">...</button></td>
-    </tr>
-    <tr>
-        <td>Santos, Mikaela</td>
-        <td>09273456789</td>
-        <td>mreyes@pateros</td>
-        <td>Male</td>
-        <td>Full-Time</td>
-        <td>Development</td>
-        <td><button class="emp-more-btn">...</button></td>
-    </tr>
-    <tr>
-        <td>Bautista, Angelo</td>
-        <td>09194567890</td>
-        <td>abautista@pateros</td>
-        <td>Male</td>
-        <td>Contractual</td>
-        <td>IT Support</td>
-        <td><button class="emp-more-btn">...</button></td>
-    </tr>
-    <tr>
-        <td>Ocampo, Jasmin</td>
-        <td>09205678901</td>
-        <td>jocampo@pateros</td>
-        <td>Female</td>
-        <td>Full-Time</td>
-        <td>Human Resources</td>
-        <td><button class="emp-more-btn">...</button></td>
-    </tr>
-    <tr>
-        <td>Mendoza, Paolo</td>
-        <td>09176789012</td>
-        <td>pmendoza@pateros</td>
-        <td>Male</td>
-        <td>Part-Time</td>
-        <td>Logistics</td>
-        <td><button class="emp-more-btn">...</button></td>
-    </tr>
-    <tr>
-        <td>Garcia, Elena</td>
-        <td>09227890123</td>
-        <td>egarcia@pateros</td>
-        <td>Female</td>
-        <td>Full-Time</td>
-        <td>Finance</td>
-        <td><button class="emp-more-btn">...</button></td>
-    </tr>
-    <tr>
-        <td>Torres, Ricardo</td>
-        <td>09158901234</td>
-        <td>rtorres@pateros</td>
-        <td>Male</td>
-        <td>Full-Time</td>
-        <td>Maintenance</td>
-        <td><button class="emp-more-btn">...</button></td>
-    </tr>
-    <tr>
-        <td>Aquino, Sarah</td>
-        <td>09169012345</td>
-        <td>saquino@pateros</td>
-        <td>Female</td>
-        <td>Intern</td>
-        <td>Marketing</td>
-        <td><button class="emp-more-btn">...</button></td>
-    </tr>
-    <tr>
-        <td>Gonzales, Jayvee</td>
-        <td>09280123456</td>
-        <td>jgonzales@pateros</td>
-        <td>Male</td>
-        <td>Full-Time</td>
-        <td>Development</td>
-        <td><button class="emp-more-btn">...</button></td>
-    </tr>
-    <tr>
-        <td>Ramos, Lito</td>
-        <td>09491234567</td>
-        <td>lramos@pateros</td>
-        <td>Male</td>
-        <td>Contractual</td>
-        <td>General Services</td>
-        <td><button class="emp-more-btn">...</button></td>
-    </tr>
-    <tr>
-        <td>Villanueva, Bea</td>
-        <td>09172345678</td>
-        <td>bvillanueva@pateros</td>
-        <td>Female</td>
-        <td>Part-Time</td>
-        <td>Accounting</td>
-        <td><button class="emp-more-btn">...</button></td>
-    </tr>
-</tbody>
-    </table>
-
-</div>
-
-</div>
-
-</div>
-
-<!-- ADD EMPLOYEE MODAL -->
-<div class="modal" id="addModal" aria-hidden="true" role="dialog" aria-labelledby="addModalTitle">
-  <div class="modal-content" role="document">
-    <button class="modal-close" data-close="addModal" aria-label="Close">&times;</button>
-    <h2 class="modal-title" id="addModalTitle">Add Employee</h2>
-
-    <form id="addEmployeeForm" class="modal-form">
-      <div class="form-row">
-        <label>Full Name
-          <input name="fullname" type="text" placeholder="Enter full name" required>
-        </label>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Ibay, Kier Aldwin</td>
+                <td>09171234567</td>
+                <td>jdelacruz@pateros</td>
+                <td>Male</td>
+                <td>Full-Time</td>
+                <td>Maintenance</td>
+                <td><button class="emp-more-btn">...</button></td>
+              </tr>
+              <tr>
+                <td>Mondejar, Richard</td>
+                <td>09182345678</td>
+                <td>rmondejar@pateros</td>
+                <td>Male</td>
+                <td>Part-Time</td>
+                <td>Administration</td>
+                <td><button class="emp-more-btn">...</button></td>
+              </tr>
+              <tr>
+                <td>Santos, Mikaela</td>
+                <td>09273456789</td>
+                <td>mreyes@pateros</td>
+                <td>Male</td>
+                <td>Full-Time</td>
+                <td>Development</td>
+                <td><button class="emp-more-btn">...</button></td>
+              </tr>
+              <tr>
+                <td>Bautista, Angelo</td>
+                <td>09194567890</td>
+                <td>abautista@pateros</td>
+                <td>Male</td>
+                <td>Contractual</td>
+                <td>IT Support</td>
+                <td><button class="emp-more-btn">...</button></td>
+              </tr>
+              <tr>
+                <td>Ocampo, Jasmin</td>
+                <td>09205678901</td>
+                <td>jocampo@pateros</td>
+                <td>Female</td>
+                <td>Full-Time</td>
+                <td>Human Resources</td>
+                <td><button class="emp-more-btn">...</button></td>
+              </tr>
+              <tr>
+                <td>Mendoza, Paolo</td>
+                <td>09176789012</td>
+                <td>pmendoza@pateros</td>
+                <td>Male</td>
+                <td>Part-Time</td>
+                <td>Logistics</td>
+                <td><button class="emp-more-btn">...</button></td>
+              </tr>
+              <tr>
+                <td>Garcia, Elena</td>
+                <td>09227890123</td>
+                <td>egarcia@pateros</td>
+                <td>Female</td>
+                <td>Full-Time</td>
+                <td>Finance</td>
+                <td><button class="emp-more-btn">...</button></td>
+              </tr>
+              <tr>
+                <td>Torres, Ricardo</td>
+                <td>09158901234</td>
+                <td>rtorres@pateros</td>
+                <td>Male</td>
+                <td>Full-Time</td>
+                <td>Maintenance</td>
+                <td><button class="emp-more-btn">...</button></td>
+              </tr>
+              <tr>
+                <td>Aquino, Sarah</td>
+                <td>09169012345</td>
+                <td>saquino@pateros</td>
+                <td>Female</td>
+                <td>Intern</td>
+                <td>Marketing</td>
+                <td><button class="emp-more-btn">...</button></td>
+              </tr>
+              <tr>
+                <td>Gonzales, Jayvee</td>
+                <td>09280123456</td>
+                <td>jgonzales@pateros</td>
+                <td>Male</td>
+                <td>Full-Time</td>
+                <td>Development</td>
+                <td><button class="emp-more-btn">...</button></td>
+              </tr>
+              <tr>
+                <td>Ramos, Lito</td>
+                <td>09491234567</td>
+                <td>lramos@pateros</td>
+                <td>Male</td>
+                <td>Contractual</td>
+                <td>General Services</td>
+                <td><button class="emp-more-btn">...</button></td>
+              </tr>
+              <tr>
+                <td>Villanueva, Bea</td>
+                <td>09172345678</td>
+                <td>bvillanueva@pateros</td>
+                <td>Female</td>
+                <td>Part-Time</td>
+                <td>Accounting</td>
+                <td><button class="emp-more-btn">...</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
+    </div>
 
-      <div class="form-row">
-        <label>Contact
-          <input name="contact" type="text" placeholder="09XXXXXXXXX" required>
-        </label>
+    <!-- ADD EMPLOYEE MODAL -->
+    <div
+      class="modal"
+      id="addModal"
+      aria-hidden="true"
+      role="dialog"
+      aria-labelledby="addModalTitle"
+    >
+      <div class="modal-content" role="document">
+        <button class="modal-close" data-close="addModal" aria-label="Close">
+          &times;
+        </button>
+        <h2 class="modal-title" id="addModalTitle">Add Employee</h2>
+         <!-- Name -->
+        <form id="addEmployeeForm" class="modal-form">
+          <div class="name-row">
+            <div class="form-group">
+              <label>First Name</label>
+              <input type="text" placeholder="First Name" required />
+            </div>
+            <div class="form-group">
+              <label>Last Name</label>
+              <input type="text" placeholder="Last Name" required />
+            </div>
+          </div>
+           <!-- Address -->
+          <div class="form-row">
+            <label
+              >Address
+              <input
+                name="email"
+                type="Address"
+                placeholder="Street, Barangay, City"
+                required
+              />
+            </label>
+          </div>
+           <!-- Contact -->
+          <div class="form-row">
+            <label
+              >Contact
+              <input
+                name="contact"
+                type="text"
+                placeholder="09XXXXXXXXX"
+                required
+              />
+            </label>
+          </div>
+           <!-- Email --> 
+          <div class="form-row">
+            <label
+              >Email
+              <input
+                name="email"
+                type="email"
+                placeholder="example@domain.com"
+                required
+              />
+            </label>
+          </div>
+
+          <!-- Gender -->
+          <div class="form-group">
+            <label class="form-label"
+              >Gender <span class="required">*</span></label
+            >
+            <div class="radio-group">
+              <div class="radio-option">
+                <input
+                  type="radio"
+                  id="genderMale"
+                  name="gender"
+                  value="Male"
+                  required
+                />
+                <label for="genderMale">Male</label>
+              </div>
+
+              <div class="radio-option">
+                <input
+                  type="radio"
+                  id="genderFemale"
+                  name="gender"
+                  value="Female"
+                />
+                <label for="genderFemale">Female</label>
+              </div>
+            </div>
+          </div>
+          <!-- Position -->
+          <div class="form-row" required>
+            <label
+              >Position
+              <input
+                name="position"
+                type="text"
+                placeholder="Full-Time / Part-Time"
+              />
+            </label>
+          </div>
+
+          <!-- Department -->
+          <div class="form-row" required>
+            <label
+              >Department
+              <select name="department">
+                <option>Maintenance</option>
+                <option>Development</option>
+                <option>IT Support</option>
+                <option>Finance</option>
+                <option>Logistics</option>
+                <option>Human Resources</option>
+                <option>Administration</option>
+              </select>
+            </label>
+          </div>
+
+          <div class="form-actions">
+            <button type="submit" class="btn-save">Save</button>
+            <button type="button" class="btn-cancel" data-close="addModal">
+              Cancel
+            </button>
+          </div>
+        </form>
       </div>
+    </div>
 
-      <div class="form-row">
-        <label>Email
-          <input name="email" type="email" placeholder="example@domain.com">
-        </label>
+    <!-- Edit Employee Modal -->
+    <div id="editModal" class="modal" aria-hidden="true">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2>Edit Employee</h2>
+          <button
+            class="close-btn"
+            data-close="editModal"
+            aria-label="Close modal"
+          >
+            &times;
+          </button>
+        </div>
+
+        <form id="editEmployeeForm">
+          <div class="modal-body">
+            <!-- Hidden field for employee ID -->
+            <input type="hidden" id="editEmployeeId" name="employeeId" />
+
+            <!-- First Name + Last Name Row -->
+            <div class="name-row">
+              <div class="form-group">
+                <label for="editFirstName">First Name</label>
+                <input
+                  type="text"
+                  id="editFirstName"
+                  name="firstName"
+                  placeholder="First Name"
+                  required
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="editLastName">Last Name</label>
+                <input
+                  type="text"
+                  id="editLastName"
+                  name="lastName"
+                  placeholder="Last Name"
+                  required
+                />
+              </div>
+            </div>
+
+            <!-- Address -->
+            <div class="form-group">
+              <label for="editAddress">Address</label>
+              <input
+                type="text"
+                id="editAddress"
+                name="address"
+                placeholder="Street, Barangay, City"
+                required
+              />
+            </div>
+
+            <!-- Contact -->
+            <div class="form-group">
+              <label for="editContact">Contact</label>
+              <input
+                type="text"
+                id="editContact"
+                name="contact"
+                placeholder="09XXXXXXXXX"
+                pattern="[0-9]{11}"
+                required
+              />
+            </div>
+
+            <!-- Email -->
+            <div class="form-group">
+              <label for="editEmail">Email</label>
+              <input
+                type="email"
+                id="editEmail"
+                name="email"
+                placeholder="example@domain.com"
+                required
+              />
+            </div>
+
+            <!-- Gender -->
+            <div class="form-group">
+              <label class="form-label"
+                >Gender <span class="required">*</span></label
+              >
+
+              <div class="radio-group">
+                <div class="radio-option">
+                  <input
+                    type="radio"
+                    id="genderMale"
+                    name="gender"
+                    value="Male"
+                    required
+                  />
+                  <label for="genderMale">Male</label>
+                </div>
+
+                <div class="radio-option">
+                  <input
+                    type="radio"
+                    id="genderFemale"
+                    name="gender"
+                    value="Female"
+                  />
+                  <label for="genderFemale">Female</label>
+                </div>
+              </div>
+            </div>
+
+            <!-- Position -->
+            <div class="form-group">
+              <label for="editPosition">Position</label>
+              <input
+                type="text"
+                id="editPosition"
+                name="position"
+                placeholder="Full-Time / Part-Time"
+                required
+              />
+            </div>
+
+            <!-- Department -->
+            <div class="form-group">
+              <label for="editDepartment">Department</label>
+              <select id="editDepartment" name="department" required>
+                <option value="">Select Department</option>
+                <option value="Maintenance">Maintenance</option>
+                <option value="Administration">Administration</option>
+                <option value="Development">Development</option>
+                <option value="IT Support">IT Support</option>
+                <option value="Human Resources">Human Resources</option>
+                <option value="Logistics">Logistics</option>
+                <option value="Finance">Finance</option>
+                <option value="Marketing">Marketing</option>
+                <option value="General Services">General Services</option>
+                <option value="Accounting">Accounting</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn-cancel" data-close="editModal">
+              Cancel
+            </button>
+            <button type="submit" class="btn-update">Update</button>
+          </div>
+        </form>
       </div>
+    </div>
 
-      <div class="form-row">
-        <label>Gender
-          <select name="gender">
-            <option>Male</option>
-            <option>Female</option>
-          </select>
-        </label>
-      </div>
-
-      <div class="form-row">
-        <label>Position
-          <input name="position" type="text" placeholder="Full-Time / Part-Time">
-        </label>
-      </div>
-
-      <div class="form-row">
-        <label>Department
-          <select name="department">
-            <option>Maintenance</option>
-            <option>Development</option>
-            <option>IT Support</option>
-            <option>Finance</option>
-            <option>Logistics</option>
-            <option>Human Resources</option>
-            <option>Administration</option>
-          </select>
-        </label>
-      </div>
-
-      <div class="form-actions">
-        <button type="submit" class="btn-save">Save</button>
-        <button type="button" class="btn-cancel" data-close="addModal">Cancel</button>
-      </div>
-    </form>
-  </div>
-</div>
-
-
-<script src="../javascript/script.js"></script>
-<script src="../employees/script.js"></script>
-</body>
+    <script src="../javascript/script.js"></script>
+    <script src="../employees/script.js"></script>
+  </body>
 </html>
