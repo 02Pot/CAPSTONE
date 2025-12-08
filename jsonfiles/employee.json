@@ -1,0 +1,26 @@
+[
+    {
+        "employeeId": 5,
+        "employeeFirstName": "Richard",
+        "employeeLastName": "Mondejar",
+        "employeeAddress": "block 6769 lot 8 triump taguig city",
+        "employeeContactNumber": 63952548621,
+        "employeeEmail": "rmondejar@paterostechnologicalcollege.edu.ph",
+        "employeeDepartment": "IT",
+        "dateOfHire": "2025-10-09T08:00:00",
+        "employeeEmploymentType": "Regular",
+        "employeeRate": 75
+    },
+    {
+        "employeeId": 6,
+        "employeeFirstName": "Varon",
+        "employeeLastName": "Jomar",
+        "employeeAddress": "block 420 lot 8 triump taguig city",
+        "employeeContactNumber": 63952548621,
+        "employeeEmail": "varonj@paterostechnologicalcollege.edu.ph",
+        "employeeDepartment": "IT",
+        "dateOfHire": "2003-01-01T08:00:00",
+        "employeeEmploymentType": "Part-Time",
+        "employeeRate": 50
+    }
+]

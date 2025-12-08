@@ -4,8 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Automated Payroll</title>
-    <link rel="stylesheet" href="/css/table.css">
+    <link rel="stylesheet" href="/css/employee.css">
     <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/table.css">
+    <script src="../javascript/dialog.js"></script>
+    <script src="../javascript/table.js"></script>
 </head>
 <body>
 
@@ -33,201 +36,44 @@
 </div>
 
 <div class="main-content">
+  <!-- TABLE SECTION -->   
+<div class="emp-table-wrapper">
+<div id="dialog-container">
 
-<!--PAYROLL POP-UP-->
-<dialog id="payroll-dialog">
-<div class="payslip-container">
-    <div class="header">
-        <img src="/assets/logo-ptc.png" alt="Logo">
-        <div class="title">Pateros Technological College</div>
-        <div class="subtitle">Payslip</div>
-    </div>
-
-    <div class="employee-info">
-        <div>
-            <span class="info-label">Employee Name:</span> Varon Jomar<br>
-            <span class="info-label">Worked Hours:</span> 35<br>
-            <span class="info-label">Overtime Hours:</span> 5<br>
-            <span class="info-label">Employee Rate:</span> 150
-        </div>
-        <div>
-            <span class="info-label">Date of Joining:</span> January 2 2003<br>
-            <span class="info-label">Employee Type:</span> Part-Time<br>
-            <span class="info-label">Department:</span> Office Staff<br>
-            <span class="info-label">Pay Period:</span> November 1-15 2025
-        </div>
-    </div>
-
-    <div class="pay-details">
-        <div>
-            <div class="section-title">Earnings</div>
-            <table>
-                <tr><td class="label-col">Basic Rate</td><td class="amount-col">5250</td></tr>
-                <tr><td class="label-col">Overtime</td><td class="amount-col">250</td></tr>
-                <tr class="total-row">
-                    <td class="label-col">Gross Pay</td>
-                    <td class="amount-col">5500</td>
-                </tr>
-            </table>
-        </div>
-        <div>
-            <div class="section-title">Deductions</div>
-            <table>
-                <tr><td class="label-col">&nbsp;</td><td class="amount-col"></td></tr>
-                <tr><td class="label-col">Tax</td><td class="amount-col">100</td></tr>
-                <tr class="total-row">
-                    <td class="label-col">Total Deductions</td>
-                    <td class="amount-col">100</td>
-                </tr>
-            </table>
-        </div>
-    </div>
-    <div class="netpay">
-        Total Net Pay: 5400
-    </div>
-    <div class="footer">
-        This is a system generated payslip
-    </div>
-    <div class="dialog-button">
-        <button id="dialog-button-cancel" onclick=closePayrollDialog()>Cancel</button>
-        <button id="dialog-button-email">Send to Email</button>
-    </div>
-</div>
-</dialog>
-
-<table class="payroll-table">
-    <thead>
-        <tr>
-            <th>Employee Name</th>
-            <th>Email</th>
-            <th>Contact</th>
-            <th>Type</th>
-            <th>Payslip</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>Jhomar Varon</td>
-            <td>varonjhomar@paterostechnologicalcollege.edu.ph</td>
-            <td>09276436271</td>
-            <td>Part-Time</td>
-            <td><a href="#" onclick=showPayrollDialog() class="view-link">View</a></td>
-        </div>
-    </div>
-        </tr>
-        <tr>
-            <td>Richard Mondejar</td>
-            <td>mondejarrichard@paterostechnologicalcollege.edu.ph</td>
-            <td>09826483561</td>
-            <td>Regular</td>
-            <td><a href="#" class="view-link">View</a></td>
-        </tr>
-        <tr>
-            <td>Aaron Nacion</td>
-            <td>nacionaaron@paterostechnologicalcollege.edu.ph</td>
-            <td>09526432526</td>
-            <td>Regular</td>
-            <td><a href="#" class="view-link">View</a></td>
-        </tr>
-        <tr>
-            <td>Kier Aldwin Ibay</td>
-            <td>ibaykieraldwin@paterostechnologicalcollege.edu.ph</td>
-            <td>09829463714</td>
-            <td>Regular</td>
-            <td><a href="#" class="view-link">View</a></td>
-        </tr>
-        <tr>
-            <td>John Lee Valencia</td>
-            <td>valenciajohnlee@paterostechnologicalcollege.edu.ph</td>
-            <td>09829457361</td>
-            <td>Regular</td>
-            <td><a href="#" class="view-link">View</a></td>
-        </tr>
-        <tr>
-            <td>Maria Santos</td>
-            <td>mariasantos@paterostechnologicalcollege.edu.ph</td>
-            <td>09182345671</td>
-            <td>Regular</td>
-            <td><a href="#" class="view-link">View</a></td>
-        </tr>
-        <tr>
-            <td>Carlos Ramirez</td>
-            <td>carlosramirez@paterostechnologicalcollege.edu.ph</td>
-            <td>09987654321</td>
-            <td>Regular</td>
-            <td><a href="#" class="view-link">View</a></td>
-        </tr>
-        <tr>
-            <td>Angela Cruz</td>
-            <td>angelacruz@paterostechnologicalcollege.edu.ph</td>
-            <td>09234567891</td>
-            <td>Regular</td>
-            <td><a href="#" class="view-link">View</a></td>
-        </tr>
-        <tr>
-            <td>Michael Lorenzo</td>
-            <td>michaellorenzo@paterostechnologicalcollege.edu.ph</td>
-            <td>09351247896</td>
-            <td>Regular</td>
-            <td><a href="#" class="view-link">View</a></td>
-        </tr>
-        <tr>
-            <td>Sophia Dela Peña</td>
-            <td>sophiadelapena@paterostechnologicalcollege.edu.ph</td>
-            <td>09786423145</td>
-            <td>Regular</td>
-            <td><a href="#" class="view-link">View</a></td>
-        </tr>
-        <tr>
-            <td>Mark Anthony Villanueva</td>
-            <td>markvillanueva@paterostechnologicalcollege.edu.ph</td>
-            <td>09563478210</td>
-            <td>Regular</td>
-            <td><a href="#" class="view-link">View</a></td>
-        </tr>
-        <tr>
-            <td>Katrina Gomez</td>
-            <td>katrinagomez@paterostechnologicalcollege.edu.ph</td>
-            <td>09472856139</td>
-            <td>Regular</td>
-            <td><a href="#" class="view-link">View</a></td>
-        </tr>
-        <tr>
-            <td>Jerome Castillo</td>
-            <td>jeromecastillo@paterostechnologicalcollege.edu.ph</td>
-            <td>09175648293</td>
-            <td>Regular</td>
-            <td><a href="#" class="view-link">View</a></td>
-        </tr>
-        <tr>
-            <td>Alyssa Tan</td>
-            <td>alyssatan@paterostechnologicalcollege.edu.ph</td>
-            <td>09263948712</td>
-            <td>Regular</td>
-            <td><a href="#" class="view-link">View</a></td>
-        </tr>
-        <tr>
-            <td>Raymond Bautista</td>
-            <td>raymondbautista@paterostechnologicalcollege.edu.ph</td>
-            <td>09384721569</td>
-            <td>Regular</td>
-            <td><a href="#" class="view-link">View</a></td>
-        </tr>
-    </tbody>
-</table>
-</div>
 </div>
 
-    <script>
-        const dialog = document.getElementById("payroll-dialog")
-        function showPayrollDialog(){
-            dialog.showModal()
-        }
-        function closePayrollDialog(){
-            dialog.close()
-        }
-    </script>
-    
-<script src="../javascript/script.js"></script>
+    <div class="emp-table-header">
+        <h2 class="emp-table-title">Payroll details</h2>
+        <div class="emp-search-box">
+            <input type="text" placeholder="Search employee">
+        </div>
+    </div>
+
+    <div class="emp-divider"></div>
+
+    <table class="emp-table">
+        <thead>
+            <tr>
+                <th>Employee Name</th>
+                <th>Email</th>
+                <th>Contact Number</th>
+                <th>Type</th>
+                <th>Payslip</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Ibay, Kier Aldwin</td>
+                <td>09171234567</td>
+                <td>jdelacruz@pateros</td>
+                <td>Full-Time</td>
+                <td><button class="emp-more-btn" onclick="showPayrollDialog()">view</button></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+
+
 </body>
 </html>

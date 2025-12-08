@@ -12,7 +12,6 @@
 <body>
 
 <div class="container">
-
 <div class="sidebar">
     <div class="logo">
         <img src="/assets/logo-ptc.png" alt="Logo">
@@ -42,11 +41,9 @@
 </div>
 
 <div class="main-content">
-
     <div class="class">
         <h1>Employees</h1>
     </div>
-
     <div class="button-group">
         <button class="btn-add">
             <span>Add Employee Records</span>
@@ -59,19 +56,18 @@
         </button>
     </div>
 
-  <!-- TABLE SECTION -->   
 <div class="emp-table-wrapper">
+<div id="dialog-container">
+</div>
 
     <div class="emp-table-header">
         <h2 class="emp-table-title">Employee details</h2>
-
         <div class="emp-search-box">
             <input type="text" placeholder="Search employee">
         </div>
     </div>
 
     <div class="emp-divider"></div>
-
     <table class="emp-table">
         <thead>
             <tr>
@@ -84,124 +80,20 @@
                 <th>More Details</th>
             </tr>
         </thead>
-<tbody>
-    <tr>
-        <td>Ibay, Kier Aldwin</td>
-        <td>09171234567</td>
-        <td>jdelacruz@pateros</td>
-        <td>Male</td>
-        <td>Full-Time</td>
-        <td>Maintenance</td>
-        <td><button class="emp-more-btn">...</button></td>
-    </tr>
-    <tr>
-        <td>Mondejar, Richard</td>
-        <td>09182345678</td>
-        <td>rmondejar@pateros</td>
-        <td>Male</td>
-        <td>Part-Time</td>
-        <td>Administration</td>
-        <td><button class="emp-more-btn">...</button></td>
-    </tr>
-    <tr>
-        <td>Santos, Mikaela</td>
-        <td>09273456789</td>
-        <td>mreyes@pateros</td>
-        <td>Male</td>
-        <td>Full-Time</td>
-        <td>Development</td>
-        <td><button class="emp-more-btn">...</button></td>
-    </tr>
-    <tr>
-        <td>Bautista, Angelo</td>
-        <td>09194567890</td>
-        <td>abautista@pateros</td>
-        <td>Male</td>
-        <td>Contractual</td>
-        <td>IT Support</td>
-        <td><button class="emp-more-btn">...</button></td>
-    </tr>
-    <tr>
-        <td>Ocampo, Jasmin</td>
-        <td>09205678901</td>
-        <td>jocampo@pateros</td>
-        <td>Female</td>
-        <td>Full-Time</td>
-        <td>Human Resources</td>
-        <td><button class="emp-more-btn">...</button></td>
-    </tr>
-    <tr>
-        <td>Mendoza, Paolo</td>
-        <td>09176789012</td>
-        <td>pmendoza@pateros</td>
-        <td>Male</td>
-        <td>Part-Time</td>
-        <td>Logistics</td>
-        <td><button class="emp-more-btn">...</button></td>
-    </tr>
-    <tr>
-        <td>Garcia, Elena</td>
-        <td>09227890123</td>
-        <td>egarcia@pateros</td>
-        <td>Female</td>
-        <td>Full-Time</td>
-        <td>Finance</td>
-        <td><button class="emp-more-btn">...</button></td>
-    </tr>
-    <tr>
-        <td>Torres, Ricardo</td>
-        <td>09158901234</td>
-        <td>rtorres@pateros</td>
-        <td>Male</td>
-        <td>Full-Time</td>
-        <td>Maintenance</td>
-        <td><button class="emp-more-btn">...</button></td>
-    </tr>
-    <tr>
-        <td>Aquino, Sarah</td>
-        <td>09169012345</td>
-        <td>saquino@pateros</td>
-        <td>Female</td>
-        <td>Intern</td>
-        <td>Marketing</td>
-        <td><button class="emp-more-btn">...</button></td>
-    </tr>
-    <tr>
-        <td>Gonzales, Jayvee</td>
-        <td>09280123456</td>
-        <td>jgonzales@pateros</td>
-        <td>Male</td>
-        <td>Full-Time</td>
-        <td>Development</td>
-        <td><button class="emp-more-btn">...</button></td>
-    </tr>
-    <tr>
-        <td>Ramos, Lito</td>
-        <td>09491234567</td>
-        <td>lramos@pateros</td>
-        <td>Male</td>
-        <td>Contractual</td>
-        <td>General Services</td>
-        <td><button class="emp-more-btn">view</button></td>
-    </tr>
-    <tr>
-        <td>Villanueva, Bea</td>
-        <td>09172345678</td>
-        <td>bvillanueva@pateros</td>
-        <td>Female</td>
-        <td>Part-Time</td>
-        <td>Accounting</td>
-        <td><button class="emp-more-btn">...</button></td>
-    </tr>
-</tbody>
+    <tbody>
+        <tr>
+            <td>Ibay, Kier Aldwin</td>
+            <td>09171234567</td>
+            <td>jdelacruz@pateros</td>
+            <td>Male</td>
+            <td>Full-Time</td>
+            <td>Maintenance</td>
+            <td><button class="emp-more-btn">view</button></td>
+        </tr>
+    </tbody>
     </table>
-
 </div>
 
-</div>
-
-</div>
-
-<script src="/javascript/script.js"></script>
+<script src="../javascript/employee.js"></script>
 </body>
 </html>
