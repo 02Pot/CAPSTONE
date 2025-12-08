@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML DIALOGS</title>
+</head>
+<body>
+    <button onclick=showLoginDialog()>Login</button>
+    <dialog id="login-dialog">
+        <h2>Login</h2>
+        <form action="">
+            <input type="text" name="" type="email">
+            <input type="text" name="" type="password">
+        </form>
+    </dialog>
+
+    <script>
+        const dialog = document.getElementById("login-dialog")
+        function showLoginDialog(){
+            dialog.showModal()
+        }
+    </script>
+</body>
+</html>

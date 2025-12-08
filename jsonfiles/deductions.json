@@ -1,0 +1,12 @@
+[
+    {
+        "deductionsId": 1,
+        "earningsName": "Employement Tax",
+        "earningsAmount": 150
+    },
+    {
+        "deductionsId": 2,
+        "deductionsName": "Cash Advance",
+        "deductionsAmount": 100
+    }
+]

@@ -1,6 +1,6 @@
 body {
     margin: 0;
-    font-family: Arial, sans-serif;
+    font-family: Poppins, sans-serif;
 }
 
 /* Sidebar */
@@ -42,7 +42,8 @@ body {
 
 .menu-item {
     padding: 12px 20px;
-    font-size: 14px;
+    font-size: 16px;
+    font-weight: 600;
     display: flex;
     align-items: center;
     cursor: pointer;

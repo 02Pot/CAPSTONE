@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Automated Payroll</title>
+    <link rel="stylesheet" href="/css/employee.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/table.css">
+    <script src="../javascript/dialog.js"></script>
+    <script src="../javascript/table.js"></script>
+</head>
+<body>
+
+<div class="container">
+
+<div class="sidebar">
+    <div class="logo">
+        <img src="/assets/logo-ptc.png" alt="Logo">
+    </div>
+    <p class="menu-title">Menu</p>
+    <div class="menu-list">
+        <a href="../index.html" class="menu-item">
+            <span class="icon">📊</span> DASHBOARD
+        </a>
+        <a href="../html/payroll.html" class="menu-item">
+            <span class="icon">📊</span> PAYROLL
+        </a>
+        <a href="../html/employees.html" class="menu-item">
+            <span class="icon">👥</span> EMPLOYEES
+        </a>
+        <a href="../html/reports.html" class="menu-item">
+            <span class="icon">📁</span> REPORTS
+        </a>
+    </div>
+</div>
+
+<div class="main-content">
+  <!-- TABLE SECTION -->   
+<div class="emp-table-wrapper">
+<div id="dialog-container">
+
+</div>
+
+    <div class="emp-table-header">
+        <h2 class="emp-table-title">Payroll details</h2>
+        <div class="emp-search-box">
+            <input type="text" placeholder="Search employee">
+        </div>
+    </div>
+
+    <div class="emp-divider"></div>
+
+    <table class="emp-table">
+        <thead>
+            <tr>
+                <th>Employee Name</th>
+                <th>Email</th>
+                <th>Contact Number</th>
+                <th>Type</th>
+                <th>Payslip</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Ibay, Kier Aldwin</td>
+                <td>09171234567</td>
+                <td>jdelacruz@pateros</td>
+                <td>Full-Time</td>
+                <td><button class="emp-more-btn" onclick="showPayrollDialog()">view</button></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+
+
+</body>
+</html>
