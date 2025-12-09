@@ -78,8 +78,8 @@ function closeChoiceModal(){
 
 function viewEmployee(){
   closeChoiceModal();
-  // halimbawa: bukas ng view page
-  window.location.href = `view-employee.php?id=${activeId}`;
+  // halimbawa: bukas ng view page para sa view details
+  window.location.href = `../html/irreg.html?id=${activeId}`;
 }
 
 function deleteEmployee(){
