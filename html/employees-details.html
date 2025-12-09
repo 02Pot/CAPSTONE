@@ -1,0 +1,126 @@
+<!DOCTYPE html> 
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Employee Information</title>
+<style>
+    body {
+        font-family: Arial, Helvetica, sans-serif;
+        background-color: #e6e6e6;
+        margin: 0;
+    }
+    .container {
+        width: 520px;
+        margin: 50px auto;
+        background-color: #d9d6d6;
+        padding: 25px;
+        border: 2px solid #808080;
+    }
+    h1 {
+        font-size: 20px;
+        border-bottom: 2px solid black;
+        padding-bottom: 5px;
+        margin-bottom: 15px;
+    }
+    .top-section {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+    }
+    .photo {
+        width: 110px;
+        height: 130px;
+        border: 1px solid black;
+        object-fit: cover;
+        margin-left: 10px;
+    }
+    .section {
+        font-weight: bold;
+        font-size: 15px;
+        margin-top: 18px;
+    }
+    table {
+        width: 100%;
+        margin-top: 6px;
+        border-collapse: collapse;
+    }
+    td.label {
+        width: 40%;
+        padding: 4px 0;
+        vertical-align: top;
+    }
+    td.value {
+        width: 60%;
+        padding: 4px 0;
+    }
+    .earnings-deductions {
+        margin-top: 25px;
+        display: flex;
+        justify-content: space-between;
+    }
+    .earnings-deductions div {
+        width: 48%;
+        font-weight: bold;
+    }
+    .deduct {
+        text-align: right;
+    }
+    .signature {
+        margin-top: 70px;
+        text-align: center;
+        font-size: 14px;
+    }
+    .line {
+        width: 65%;
+        border-top: 1px solid black;
+        margin: 15px auto 5px auto;
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <h1>EMPLOYEE INFORMATION</h1>
+
+    <div class="top-section">
+        <div class="left-info">
+            <div class="section">Personal Information</div>
+            <table>
+                <tr><td class="label">First Name:</td><td class="value">Varon</td></tr>
+                <tr><td class="label">Last Name:</td><td class="value">Jomar</td></tr>
+                <tr><td class="label">Address:</td><td class="value">block 67 lot 9 pateros st.</td></tr>
+                <tr><td class="label">Contact Number:</td><td class="value">+63 594645121</td></tr>
+                <tr><td class="label">Email:</td><td class="value">vjomar@paterostechnologicalcollege.edu.ph</td></tr>
+            </table>
+        </div>
+
+        <img src="face.png" alt="Employee" class="photo">
+    </div>
+
+    <div class="section">Employment Information</div>
+    <table>
+        <tr><td class="label">Department:</td><td class="value">MIS</td></tr>
+        <tr><td class="label">Date of Hire:</td><td class="value">January 1, 2003</td></tr>
+        <tr><td class="label">Employment Type:</td><td class="value">Part-Time Employee</td></tr>
+    </table>
+
+    <div class="earnings-deductions">
+        <div class="earn">
+            Earnings<br>
+            Hourly Rate:  P 150<br>
+            Overtime:    P 250
+        </div>
+        <div class="deduct">
+            Deductions<br>
+            Employment Tax: 10%
+        </div>
+    </div>
+
+    <div class="signature">
+        <div class="line"></div>
+        Employee Signature
+    </div>
+</div>
+
+</body>
+</html>
