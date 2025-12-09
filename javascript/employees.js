@@ -89,3 +89,10 @@ function deleteEmployee(){
   fetch(`delete-employee.php?id=${activeId}`, {method:'DELETE'})
     .then(r => r.ok ? location.reload() : alert('Delete failed'));
 }
+// close modal on ESC or click outside
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeChoiceModal();
+});
+document.getElementById('choiceModal').onclick = e => {
+  if (e.target === e.currentTarget) closeChoiceModal();
+};
