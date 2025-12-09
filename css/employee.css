@@ -1,139 +1,138 @@
 .container {
-        display: flex;           
-        height: 100vh;          
-        }
+  display: flex;
+  height: 100vh;
+}
 .main-content {
-        flex: 1;
-        padding: 30px;
-        }
-        /* Add Button */
+  flex: 1;
+  padding: 30px;
+}
+/* Add Button */
 
 .btn-add {
-         background-color: #6DC4D7;
-         color: white;
-         border: 1px solid black;  
-         padding: 10px 20px;
-         border-radius: 3px;
-         cursor: pointer;  
-         }
+  background-color: #6dc4d7;
+  color: white;
+  border: 1px solid black;
+  padding: 10px 20px;
+  border-radius: 3px;
+  cursor: pointer;
+}
 
-        .btn-add:hover {
-         background-color: #519eaf;
-        }
+.btn-add:hover {
+  background-color: #519eaf;
+}
 
-        /* Edit Button */
-        .btn-edit {
-         background-color: #6DC4D7;
-         color: white;
-         border: 1px solid black;  
-         padding: 10px 20px;
-         border-radius: 3px;
-         cursor: pointer;
-        }
+/* Edit Button */
+.btn-edit {
+  background-color: #6dc4d7;
+  color: white;
+  border: 1px solid black;
+  padding: 10px 20px;
+  border-radius: 3px;
+  cursor: pointer;
+}
 
-        .btn-edit:hover {
-         background-color: #519eaf;
-        } 
+.btn-edit:hover {
+  background-color: #519eaf;
+}
 
-        /* Icon size */
-        .btn-add i, .btn-edit i {
-         font-size: 14px;
-         padding: 4px;
-         }
+/* Icon size */
+.btn-add i,
+.btn-edit i {
+  font-size: 14px;
+  padding: 4px;
+}
 
-    
-         /* MAIN WRAPPER */
+/* MAIN WRAPPER */
 .emp-table-wrapper {
-        background: white;
-        padding: 15px 25px 25px;
-        border: 1px solid #000;
-        border-radius: 10px;
-        margin-top: 20px;
-        }
+  background: white;
+  padding: 15px 25px 25px;
+  border: 1px solid #000;
+  border-radius: 10px;
+  margin-top: 20px;
+}
 
 .emp-table-wrapper tbody tr:hover {
-        background: #f1f1f1; 
-        cursor: default;
-        }
+  background: #f1f1f1;
+  cursor: default;
+}
 .emp-table thead tr {
-        display: flex;
-        justify-content: space-between;
-        align-items: center; 
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 .emp-table thead th {
-    text-align: center;
-    padding: 10px;
-    font-size: 16px;
-    font-weight: 600;
-    width: 20%;
+  text-align: center;
+  padding: 10px;
+  font-size: 16px;
+  font-weight: 600;
+  width: 20%;
 }
 
 .emp-table-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
 }
 
 .emp-table-title {
-        font-size: 22px;
-        font-weight: 700;
-        margin: 0;
-        padding: 0;
+  font-size: 22px;
+  font-weight: 700;
+  margin: 0;
+  padding: 0;
 }
 
-        /* SEARCH BAR */
-        .emp-search-box input {
-        padding: 8px 14px;
-        border: 2px solid #000; /* consistent black border */
-        border-radius: 6px;
-        font-size: 14px;
-        width: 230px;
-        outline: none;
-        }
+/* SEARCH BAR */
+.emp-search-box input {
+  padding: 8px 14px;
+  border: 2px solid #000; /* consistent black border */
+  border-radius: 6px;
+  font-size: 14px;
+  width: 230px;
+  outline: none;
+}
 
-        /* SEARCH BAR HOVER/FOCUS */
-        .emp-search-box input:focus {
-        border-color: #0077ff;
-        }
+/* SEARCH BAR HOVER/FOCUS */
+.emp-search-box input:focus {
+  border-color: #0077ff;
+}
 
-        /* DIVIDER LINE BELOW HEADER */
-        .emp-divider {
-        width: 100%;
-        height: 1px;
-        background: #00000030; /* light grey */
-        margin: 10px 0 15px 0;
-       }
+/* DIVIDER LINE BELOW HEADER */
+.emp-divider {
+  width: 100%;
+  height: 1px;
+  background: #00000030; /* light grey */
+  margin: 10px 0 15px 0;
+}
 
-       /* TABLE */
-       .emp-table {
-        width: 100%;
-        border-collapse: collapse;
-        table-layout: fixed;
-        }
-        
-        .emp-table tbody td {
-        padding: 10px 0;
-        font-size: 14px;
-        text-align: center;
-        width: 20%;
-        overflow: hidden;
-       }
-       .emp-table tbody tr{
-        border-color: #000;
-        display: flex;
-        justify-content: space-between;
-       }
-    
-       .emp-more-btn {
-       border: none;
-       background: none;
-       font-size: 19px;
-       cursor: pointer;
-       color: #0077ff;
-       font-family: Poppins;
-       }
+/* TABLE */
+.emp-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
 
+.emp-table tbody td {
+  padding: 10px 0;
+  font-size: 14px;
+  text-align: center;
+  width: 20%;
+  overflow: hidden;
+}
+.emp-table tbody tr {
+  border-color: #000;
+  display: flex;
+  justify-content: space-between;
+}
+
+.emp-more-btn {
+  border: none;
+  background: none;
+  font-size: 19px;
+  cursor: pointer;
+  color: #0077ff;
+  font-family: Poppins;
+}
 
 .modal-close {
   position: absolute;
@@ -252,11 +251,21 @@
   background: #fff;
   width: 480px;
   border-radius: 12px;
-  border: 2px solid #000;
-  padding: 20px;
-  animation: popIn 0.2s ease-in-out;
+  border: 1px solid #000;
+  padding: 30px;
+  animation: popIn 0.3s ease-in-out;
 }
-
+/* Animation for modal pop-in effect */
+@keyframes popIn {
+  0% {
+    transform: scale(0.3);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
 /* Header layout */
 .modal-header {
   display: flex;
@@ -366,4 +375,46 @@
 .radio-option input[type="radio"] {
   transform: scale(1.2);
   cursor: pointer;
+}
+
+/* ===== CHOICE MODAL DESIGN ===== */
+.choice-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+.choice-modal {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 6px;
+  text-align: center;
+  min-width: 260px;
+}
+.choice-buttons {
+  margin-top: 1rem;
+  display: flex;
+  gap: 0.75rem;
+  justify-content: center;
+}
+.choice-buttons button {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.btn-view {
+  background: #3498db;
+  color: #fff;
+}
+.btn-delete {
+  background: #e74c3c;
+  color: #fff;
+}
+.btn-cancel {
+  background: #bdc3c7;
+  color: #000;
 }

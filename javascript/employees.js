@@ -59,3 +59,33 @@ if (addForm) {
   });
 }
 
+
+
+let activeId = null; // kung sino ang aktibong row
+
+
+// Ipakita ang choice modal
+function showChoiceModal(id, fullName){
+  activeId = id;
+  document.getElementById('empName').textContent = fullName;
+  document.getElementById('choiceModal').style.display = 'flex';
+}
+
+function closeChoiceModal(){
+  document.getElementById('choiceModal').style.display = 'none';
+  activeId = null;
+}
+
+function viewEmployee(){
+  closeChoiceModal();
+  // halimbawa: bukas ng view page
+  window.location.href = `view-employee.php?id=${activeId}`;
+}
+
+function deleteEmployee(){
+  if(!confirm('Are you sure you want to delete this employee?')) return;
+  closeChoiceModal();
+  // AJAX or redirect to delete endpoint
+  fetch(`delete-employee.php?id=${activeId}`, {method:'DELETE'})
+    .then(r => r.ok ? location.reload() : alert('Delete failed'));
+}
