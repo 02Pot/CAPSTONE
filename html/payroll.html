@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Automated Payroll</title>
+    <link rel="stylesheet" href="/css/employee.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/table.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+
+</head>
+<body>
+
+<div class="container">
+
+<div class="sidebar">
+    <div class="logo">
+        <img src="/assets/logo-ptc.png" alt="Logo">
+    </div>
+    <p class="menu-title">Menu</p>
+    <div class="menu-list">
+        <a href="../index.html" class="menu-item">
+            <span class="icon">📊</span> DASHBOARD
+        </a>
+        <a href="../html/payroll.html" class="menu-item">
+            <span class="icon">📊</span> PAYROLL
+        </a>
+        <a href="../html/employees.html" class="menu-item">
+            <span class="icon">👥</span> EMPLOYEES
+        </a>
+        <a href="../html/reports.html" class="menu-item">
+            <span class="icon">📁</span> REPORTS
+        </a>
+    </div>
+</div>
+
+<div class="main-content">
+<div id="uploadView" class="card">
+    <h2>Please import attendance to calculate</h2>
+    <!-- Hidden file input -->
+    <input type="file" id="attendanceFile" accept=".xlsx,.xls,.csv">
+    <button class="button" onclick="openAttendancePicker()">Import Attendance</button>
+</div>
+
+<!-- AFTER IMPORT -->
+<div id="statsView" class="card">
+    
+    <div>
+        <div class="label">Processed Employee</div>
+        <div class="value" id="processedVal">0</div>
+    </div>
+    <div>
+        <div class="label">Failed to Process Employee</div>
+        <div class="value" id="failedVal">0 <span class="failed-dot"></span></div>
+    </div>
+    <div>
+        <div class="label">Total Employee</div>
+        <div class="value" id="totalVal">0</div>
+    </div>
+
+    <div style="display:flex; flex-direction: column; gap:10px;">
+        <input type="file" id="attendanceFile" accept=".xlsx,.xls,.csv" style="display:none">
+        <button style="background: white; border: 1px solid black; color: black;"
+        class="button" onclick="openAttendancePicker()" disabled>
+            Import Attendance
+        </button>
+        <button class="button" onclick="sendEmail()">
+            Send Payslip to Email
+        </button>
+    </div>
+</div>
+
+  <!-- TABLE SECTION -->
+<div class="emp-table-wrapper">
+<div id="dialog-container">
+
+</div>
+
+    <div class="emp-table-header">
+        <h2 class="emp-table-title">Payroll details</h2>
+        <div class="emp-search-box">
+            <input type="text" placeholder="Search employee">
+        </div>
+    </div>
+
+    <div class="emp-divider"></div>
+    <table class="emp-table">
+        <thead>
+            <tr>
+                <th>Employee Name</th>
+                <th>Email</th>
+                <th>Contact Number</th>
+                <th>Type</th>
+                <th>Payslip</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+</div>
+
+
+<script>
+    document.getElementById("attendanceFile").addEventListener("change", function(event) {
+        let file = event.target.files[0];
+        if (!file) return;
+
+        let reader = new FileReader();
+
+        reader.onload = function(e) {
+            let data = new Uint8Array(e.target.result);
+            let workbook = XLSX.read(data, { type: "array" });
+
+            let sheet = workbook.Sheets[workbook.SheetNames[0]];
+
+            // Convert sheet to JSON
+            let json = XLSX.utils.sheet_to_json(sheet);
+
+            let processed = json[0]["Processed"] || 0;
+            let failed    = json[0]["Failed"] || 0;
+            let total     = json[0]["Total"] || 0;
+
+            // Update UI
+            document.getElementById("processedVal").innerText = processed;
+            document.getElementById("failedVal").innerHTML = failed;
+            document.getElementById("totalVal").innerText = total;
+
+            document.getElementById("uploadView").style.display = "none";
+            document.getElementById("statsView").style.display = "flex";
+
+        };
+
+        reader.readAsArrayBuffer(file);
+    });
+
+    // Button triggers file dialog
+    function openAttendancePicker() {
+        document.getElementById("attendanceFile").click();
+
+}
+
+</script>
+<script src="../javascript/dialog.js"></script>
+<script src="../javascript/table.js"></script>
+</body>
+</html>
