@@ -7,13 +7,16 @@ async function loadIntoTable(url, table) {
     const employees = await response.json();
         
     tableBody.innerHTML = "";
-    employees.forEach(employee => {
+
+    const limitedEmployees = employees.slice(0, 10);
+
+    limitedEmployees.forEach(emp => {
         const tr = document.createElement("tr");
         tr.innerHTML = `
-            <td>${employee.employeeFirstName} ${employee.employeeLastName}</td>
-            <td>${employee.employeeEmail}</td>
-            <td>${employee.employeeContactNumber}</td>
-            <td>${employee.employeeEmploymentType}</td>
+            <td>${emp.employeeFirstName} ${emp.employeeLastName}</td>
+            <td>${emp.employeeEmail}</td>
+            <td>${emp.employeeContactNumber}</td>
+            <td>${emp.employeeEmploymentType}</td> 
         `;
 
         const actionTd = document.createElement("td");
@@ -21,7 +24,7 @@ async function loadIntoTable(url, table) {
         btn.classList.add("emp-more-btn");
         btn.textContent = "View";
 
-        btn.addEventListener("click", () => showPayrollDialog(employee));
+        btn.addEventListener("click", () => showPayrollDialog(emp));
 
         actionTd.appendChild(btn);
         tr.appendChild(actionTd);

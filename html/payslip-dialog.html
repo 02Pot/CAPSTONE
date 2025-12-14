@@ -1,5 +1,5 @@
 
-    <dialog id="payroll-dialog">
+<dialog id="payroll-dialog">
     <div class="payslip-container">
         <div class="header">
             <img src="/assets/logo-ptc.png" alt="Logo">
@@ -8,46 +8,58 @@
         </div>
 
         <div class="employee-info">
-            <div>
-                <span class="info-label" id="emp-name">Employee Name:</span> Varon Jomar<br>
-                <span class="info-label" id="worked-hrs">Worked Hours:</span> 35<br>
-                <span class="info-label" id="ot-hrs">Overtime Hours:</span> 5<br>
-                <span class="info-label" id="emp-rate">Employee Rate:</span> 150
-            </div>
-            <div>
-                <span class="info-label" id="doj">Date of Joining:</span> January 2 2003<br>
-                <span class="info-label" id="emp-type">Employee Type:</span> Part-Time<br>
-                <span class="info-label" id="emp-dep">Department:</span> Office Staff<br>
-                <span class="info-label" id="p-period">Pay Period:</span> November 1-15 2025
-            </div>
+                <div>
+                    <span class="info-label">Employee Name:</span>
+                    <span class="info-value" id="emp-name"></span>
+
+                    <span class="info-label">Worked Hours:</span>
+                    <span class="info-value" id="worked-hrs"></span>
+
+                    <span class="info-label">Overtime Hours:</span>
+                    <span class="info-value" id="ot-hrs"></span>
+
+                    <span class="info-label">Employee Rate:</span>
+                    <span class="info-value" id="emp-rate"></span>
+                </div>
+                <div>
+                    <span class="info-label">Date of Joining:</span>
+                    <span class="info-value" id="doj"></span>
+
+                    <span class="info-label">Employee Type:</span>
+                    <span class="info-value" id="emp-type"></span>
+
+                    <span class="info-label">Department:</span>
+                    <span class="info-value" id="emp-dep"></span>
+
+                    <span class="info-label">Pay Period:</span>
+                    <span class="info-value" id="p-period"></span>
+                </div>
         </div>
 
         <div class="pay-details">
             <div>
                 <div class="section-title">Earnings</div>
                 <table>
-                    <tr><td class="label-col">Basic Rate</td><td class="amount-col">5250</td></tr>
-                    <tr><td class="label-col">Overtime</td><td class="amount-col">250</td></tr>
+                    <tbody id="earnings-body"></tbody>
                     <tr class="total-row">
                         <td class="label-col">Gross Pay</td>
-                        <td class="amount-col">5500</td>
+                        <td class="amount-col" id="gross-pay"></td>
                     </tr>
                 </table>
             </div>
             <div>
                 <div class="section-title">Deductions</div>
                 <table>
-                    <tr><td class="label-col">&nbsp;</td><td class="amount-col"></td></tr>
-                    <tr><td class="label-col">Tax</td><td class="amount-col">100</td></tr>
+                    <tbody id="deductions-body"></tbody>
                     <tr class="total-row">
                         <td class="label-col">Total Deductions</td>
-                        <td class="amount-col">100</td>
+                        <td class="amount-col" id="total-deductions"></td>
                     </tr>
                 </table>
             </div>
         </div>
         <div class="netpay">
-            Total Net Pay: 5400
+            Total Net Pay: <span id="net-pay"></span>
         </div>
         <div class="footer">
             This is a system generated payslip
@@ -57,4 +69,5 @@
             <button id="dialog-button-email">Send to Email</button>
         </div>
     </div>
+
 </dialog>
