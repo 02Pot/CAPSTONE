@@ -152,7 +152,7 @@
                 <td>Female</td>
                 <td>Full-Time</td>
                 <td>Human Resources</td>
-                 <td>
+                <td>
                   <button
                     class="emp-more-btn"
                     onclick="showChoiceModal(5, 'Ocampo, Jasmin')"
@@ -487,34 +487,20 @@
               />
             </div>
 
-            <!-- Gender -->
+            <!-- Employee ID -->
             <div class="form-group">
-              <label class="form-label"
-                >Gender <span class="required">*</span></label
-              >
-
-              <div class="radio-group">
-                <div class="radio-option">
-                  <input
-                    type="radio"
-                    id="genderMale"
-                    name="gender"
-                    value="Male"
-                    required
-                  />
-                  <label for="genderMale">Male</label>
-                </div>
-
-                <div class="radio-option">
-                  <input
-                    type="radio"
-                    id="genderFemale"
-                    name="gender"
-                    value="Female"
-                  />
-                  <label for="genderFemale">Female</label>
-                </div>
-              </div>
+              <label class="form-label">
+                Employee ID <span class="required">*</span>
+              </label>
+              <input
+                type="text"
+                id="employeeId"
+                name="employee_id"
+                class="form-input"
+                placeholder="e.g. PTC-2025-001"
+                required
+                maxlength="20"
+              />
             </div>
 
             <!-- Position -->
@@ -557,17 +543,23 @@
         </form>
       </div>
     </div>
-<!-- Choice Modal -->
-<div id="choiceModal" class="choice-modal-overlay">
-  <div class="choice-modal">
-    <p>What do you want to do with <strong id="empName"></strong>?</p>
-    <div class="choice-buttons">
-      <button class="btn-view"   onclick="viewEmployee()">View Details</button>
-      <button class="btn-delete" onclick="deleteEmployee()">Delete Record</button>
-      <button class="btn-cancel" onclick="closeChoiceModal()">Cancel</button>
+    <!-- Choice Modal -->
+    <div id="choiceModal" class="choice-modal-overlay">
+      <div class="choice-modal">
+        <p>What do you want to do with <strong id="empName"></strong>?</p>
+        <div class="choice-buttons">
+          <button class="btn-view" onclick="viewEmployee()">
+            View Details
+          </button>
+          <button class="btn-delete" onclick="deleteEmployee()">
+            Delete Record
+          </button>
+          <button class="btn-cancel" onclick="closeChoiceModal()">
+            Cancel
+          </button>
+        </div>
+      </div>
     </div>
-  </div>
-</div>
     <script src="../javascript/script.js"></script>
     <script src="../javascript/employees.js"></script>
   </body>
