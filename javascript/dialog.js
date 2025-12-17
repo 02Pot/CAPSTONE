@@ -1,70 +1,75 @@
-async function showPayrollDialog(emp) {
+async function showPayrollDialog(payrollId) {
     if (!window.payrollDialog) {
         console.error("Dialog not loaded yet!");
         return;
     }
 
-    const empId = emp.employeeId;
+    const token = localStorage.getItem("jwtToken");
 
     try {
-        const [earningsRes, deductionsRes] = await Promise.all([
-            fetch("../jsonfiles/earnings.json"),
-            fetch("../jsonfiles/deductions.json")
-        ]);
+        const res = await fetch(`http://localhost:8080/payroll/${payrollId}`, {
+            headers: { "Authorization": `Bearer ${token}` }
+        });
+        // console.log("Fetching payslip for payrollId:", payrollId);
 
-        const allEarnings = await earningsRes.json();
-        const allDeductions = await deductionsRes.json();
+        if (!res.ok) {
+            throw new Error("Failed to fetch payslip. Check token or payroll ID.");
+        }
 
-        // Filter for this employee
-        const empEarnings = allEarnings.filter(e => e.employeeId === empId);
-        const empDeductions = allDeductions.filter(d => d.employeeId === empId);
+        const payslip = await res.json();
+
+        console.log(payslip);
+        
+        //alert(alert.PopUp)
 
         const earnBody = window.payrollDialog.querySelector("#earnings-body");
-        earnBody.innerHTML = ""; // clear existing
-
-        empEarnings.forEach(e => {
+        earnBody.innerHTML = "";
+        payslip.earnings.forEach(e => {
             const row = document.createElement("tr");
             row.innerHTML = `
-                <td class="label-col">${e.earningsName}</td>
-                <td class="amount-col">${e.earningsAmount}</td>
+                <td class="label-col">${e.name}</td>
+                <td class="amount-col">${e.amount}</td>
             `;
             earnBody.appendChild(row);
         });
 
-        // Insert deductions rows
         const dedBody = window.payrollDialog.querySelector("#deductions-body");
-        dedBody.innerHTML = ""; // clear existing
-
-        empDeductions.forEach(d => {
+        dedBody.innerHTML = "";
+        payslip.deductions.forEach(d => {
             const row = document.createElement("tr");
             row.innerHTML = `
-                <td class="label-col">${d.deductionsName}</td>
-                <td class="amount-col">${d.deductionsAmount}</td>
+                <td class="label-col">${d.name}</td>
+                <td class="amount-col">${d.amount}</td>
             `;
             dedBody.appendChild(row);
         });
 
-        // Calculate totals
-        const grossPay = empEarnings.reduce((t, e) => t + (e.earningsAmount || 0), 0);
-        const totalDeductions = empDeductions.reduce((t, d) => t + (d.deductionsAmount || 0), 0);
-        const netPay = grossPay - totalDeductions;
+        document.getElementById("emp-name").textContent = payslip.employeeName;
+        
+        document.getElementById("emp-rate").textContent = payslip.employeeRate ?? 0;
+        document.getElementById("doj").textContent = payslip.dateOfJoining || "N/A";
+        document.getElementById("emp-type").textContent = payslip.employeeType;
+        document.getElementById("emp-dep").textContent = payslip.department;
+        document.getElementById("p-period").textContent =
+            `${payslip.payrollStartDate} to ${payslip.payrollEndDate}`;
+        if (payslip.employeeType === "Regular") {
+            document.getElementById("worked-label").textContent = "Worked Days";
+            document.getElementById("worked-hrs").textContent = payslip.workedDays ?? 0;
+        } else {
+            document.getElementById("worked-label").textContent = "Worked Hours";
+            document.getElementById("worked-hrs").textContent = payslip.workedHours ?? 0;
+        }
+        if(payslip.employeeType === "Regular"){
+            document.getElementById("pay-label").textContent = "Employee Salary";
+            document.getElementById("emp-rate").textContent = payslip.monthlySalary ?? 0;
+        }else{
+            document.getElementById("pay-label").textContent = "Employee Rate";
+            document.getElementById("emp-rate").textContent = payslip.employeeRate ?? 0;
+        }
+        document.getElementById("gross-pay").textContent = payslip.totalEarnings;
+        document.getElementById("total-deductions").textContent = payslip.totalDeductions;
+        document.getElementById("net-pay").textContent = payslip.netPay;
 
-        document.getElementById("emp-name").textContent =
-            `${emp.employeeFirstName} ${emp.employeeLastName}`;
-        document.getElementById("worked-hrs").textContent = emp.workedHours || 0;
-        document.getElementById("ot-hrs").textContent = emp.overtimeHours || 0;
-        document.getElementById("emp-rate").textContent = emp.employeeRate || 0;
-        document.getElementById("doj").textContent = emp.dateOfHire || "N/A";
-        document.getElementById("emp-type").textContent = emp.employeeEmploymentType;
-        document.getElementById("emp-dep").textContent = emp.employeeDepartment;
-        document.getElementById("p-period").textContent = emp.payPeriod || "N/A";
-
-        // Fill payroll values
-        document.getElementById("gross-pay").textContent = grossPay;
-        document.getElementById("total-deductions").textContent = totalDeductions;
-        document.getElementById("net-pay").textContent = netPay;
-
-        // OPEN dialog
         window.payrollDialog.showModal();
 
     } catch (err) {
@@ -72,6 +77,7 @@ async function showPayrollDialog(emp) {
         alert("Failed to load payroll data.");
     }
 }
+
 function loadDialog() {
     fetch("../html/payslip-dialog.html")
         .then(res => res.text())
@@ -98,5 +104,5 @@ function loadDialog() {
 
 document.addEventListener("DOMContentLoaded", () => {
     loadDialog();  // load dialog
-    loadIntoTable("../jsonfiles/employee.json", document.querySelector(".emp-table"));
+    loadIntoTable("http://localhost:8080/api/employee", document.querySelector(".emp-table"));
 });

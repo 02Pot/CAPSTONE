@@ -9,6 +9,13 @@
 
 </head>
 <body>
+<script>
+    // JWT check
+    const token = localStorage.getItem("jwtToken");
+    if (!token) {
+        window.location.href = "/html/login.html";
+    }
+</script>
 
 <div class="sidebar">
     <div class="logo">
@@ -34,9 +41,17 @@
         <a href="#" class="menu-item">
             <span class="icon">📁</span> REPORTS
         </a>
+        <button id="logoutBtn">Logout</button>
     </div>
 </div>
+<script>
+  document.getElementById("logoutBtn").addEventListener("click", () => {
+    // 1. Remove the JWT token
+    localStorage.removeItem("token");
 
-<script src="/javascript/script.js"></script>
+    // 2. Redirect to login page
+    window.location.href = "/html/login.html";
+  });
+</script>
 </body>
 </html>

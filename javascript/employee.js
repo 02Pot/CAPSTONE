@@ -30,19 +30,98 @@ window.addEventListener('click', (e) => {
   }
 });
 
-const addForm = document.getElementById('addEmployeeForm');
-if (addForm) {
-  addForm.addEventListener('submit', function(e) {
-    e.preventDefault();
-    const formData = new FormData(addForm);
-    const data = Object.fromEntries(formData.entries());
-    console.log('Add Employee data:', data);
+function appendEmployeeRow(emp, table) {
+    const tr = document.createElement("tr");
+    tr.innerHTML = `
+        <td>${emp.employeeFirstName} ${emp.employeeLastName}</td>
+        <td>${emp.employeeContactNumber || "N/A"}</td>
+        <td>${emp.employeeEmail || "N/A"}</td>
+        <td>${emp.employeeGender || "N/A"}</td>
+        <td>${emp.employeeEmploymentType || "N/A"}</td>
+        <td>${emp.employeeDepartment || "N/A"}</td>
+    `;
 
-    closeModal('addModal');
-    addForm.reset();
+    const actionTd = document.createElement("td");
+    const btn = document.createElement("button");
+    btn.classList.add("emp-more-btn");
+    btn.textContent = "View";
+    btn.addEventListener("click", () => openEmployeeDetails(emp));
+    actionTd.appendChild(btn);
+    tr.appendChild(actionTd);
 
-  });
+    table.querySelector("tbody").appendChild(tr);
+
+    const tbody = table.querySelector("tbody");
+    if (tbody.children.length > 10) {
+        tbody.removeChild(tbody.lastElementChild);
+    }
 }
+
+function connectAddEmployeeForm() {
+    const addEmployeeForm = document.getElementById("addEmployeeForm");
+
+    if (!addEmployeeForm) {
+        console.error("Add Employee form not found!");
+        return;
+    }
+
+    addEmployeeForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const formData = new FormData(addEmployeeForm);
+        const employmentType = formData.get("employeeEmploymentType");
+
+        const data = {
+            employeeFirstName: formData.get("firstName"),
+            employeeLastName: formData.get("lastName"),
+            employeeAddress: formData.get("address"),
+            employeeEmail: formData.get("email"),
+            employeeContactNumber: formData.get("contact"),
+            employeeGender: formData.get("gender")?.toUpperCase(),
+            employeeEmploymentType: formData.get("employeeEmploymentType"),
+            dateOfHire: formData.get("dateofhire"),
+            employeeDepartment: formData.get("department"),
+        };
+        
+        if(employmentType === "Regular"){
+          data.monthlySalary = Number(formData.get("rate"));
+        }else{
+          data.employeeRate = Number(formData.get("rate"));
+        }
+
+        try {
+            const token = localStorage.getItem("jwtToken");
+
+            const res = await fetch("http://localhost:8080/api/employee", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
+                },
+                body: JSON.stringify(data)
+            });
+
+            if (!res.ok) throw new Error("Failed to add employee");
+
+            const result = await res.json();
+            console.log(result);
+
+            const table = document.querySelector(".emp-table");
+            if (table) appendEmployeeRow(result, table);
+
+            addEmployeeForm.reset();
+
+        } catch (err) {
+            console.error(err);
+            alert("Error adding employee: " + err.message);
+        }
+    });
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    connectAddEmployeeForm();
+});
+
 
 //EMPLOYEE DIALOG
 async function openEmployeeDetails(emp) {
@@ -60,11 +139,18 @@ async function openEmployeeDetails(emp) {
   document.getElementById("doj").textContent = emp.dateOfHire || "N/A";
   document.getElementById("emp-type").textContent = emp.employeeEmploymentType;
   document.getElementById("emp-dep").textContent = emp.employeeDepartment;
+  document.getElementById("emp-rate").textContent = emp.employeeRate;
+
+  const token = localStorage.getItem("jwtToken");
 
   const [earningsRes, deductionsRes] = await Promise.all([
-          fetch("../jsonfiles/earnings.json"),
-          fetch("../jsonfiles/deductions.json")
-      ]);
+    fetch(`http://localhost:8080/earnings/${emp.employeeId}`, {
+      headers: { "Authorization": `Bearer ${token}` }
+    }),
+    fetch(`http://localhost:8080/deductions/${emp.employeeId}`, {
+      headers: { "Authorization": `Bearer ${token}` }
+    })
+  ]);
 
   const allEarnings = await earningsRes.json();
   const allDeductions = await deductionsRes.json();
@@ -99,13 +185,20 @@ async function openEmployeeDetails(emp) {
   window.employeeDialog.showModal();
 }
 
-//Load table with Employee INFO
 async function loadIntoTable(url, table) {
     const tableBody = table.querySelector("tbody");
 
-    const response = await fetch(url);
+    const token = localStorage.getItem("jwtToken");
+
+    const response = await fetch(url, {
+        headers: {
+            "Authorization": `Bearer ${token}` //send token
+        }
+    });
+
+    if (!response.ok) throw new Error("Failed to fetch employees");
     const employees = await response.json();
-        
+
     tableBody.innerHTML = "";
 
     const limitedEmployees = employees.slice(0, 10);
@@ -136,7 +229,6 @@ async function loadIntoTable(url, table) {
     
 }
 
-
 async function loadDialog() {
   const res = await fetch("../html/employee-details.html");
   const html = await res.text();
@@ -161,5 +253,5 @@ async function loadDialog() {
 
 document.addEventListener("DOMContentLoaded", async () => {
     loadDialog();  // wait for dialog to laod
-    loadIntoTable("../jsonfiles/employee.json", document.querySelector(".emp-table"));
+    loadIntoTable("http://localhost:8080/api/employee", document.querySelector(".emp-table"));
 });

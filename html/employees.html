@@ -11,7 +11,13 @@
 
 </head>
 <body>
-
+<script>
+    // JWT check
+    const token = localStorage.getItem("jwtToken");
+    if (!token) {
+        window.location.href = "login.html";
+    }
+</script>
 <div class="container">
 <div class="sidebar">
   <div class="logo">
@@ -90,8 +96,9 @@ class="modal" id="addModal" aria-hidden="true" role="dialog" aria-labelledby="ad
   &times;
 </button>
 <h2 class="modal-title" id="addModalTitle">Add Employee</h2>
-<!-- Name -->
+
 <form id="addEmployeeForm" class="modal-form">
+  <h4>Personal Information</h4>
   <div class="name-row">
     <div class="form-group">
       <label>First Name</label>
@@ -105,30 +112,15 @@ class="modal" id="addModal" aria-hidden="true" role="dialog" aria-labelledby="ad
   <!-- Address -->
   <div class="form-row">
     <label>Address
-      <input
-        name="address"
-        type="Address"
-        placeholder="Street, Barangay, City"
-        required
-      />
+      <input name="address" type="Address" placeholder="Street, Barangay, City" required/>
     </label>
   </div>
   <!-- Contact and Email-->
   <div class="form-row">
-      <label
-      >Email
-      <input
-        name="email"
-        type="email"
-        placeholder="example@domain.com"
-        required
-      />
+      <label>Email<input name="email" type="email" placeholder="example@domain.com" required/>
     </label>
-    <label
-      >Contact
-      <input
-        name="contact" type="number" placeholder="+63" required
-      />
+    <label> Contact
+      <input name="contact" type="number" placeholder="+63" required/>
     </label>
   </div>
 
@@ -137,72 +129,64 @@ class="modal" id="addModal" aria-hidden="true" role="dialog" aria-labelledby="ad
     <label class="form-label">Gender<span class="required"></span></label>
     <div class="radio-group">
       <div class="radio-option">
-        <input
-          type="radio"
-          id="genderFemale"
-          name="gender"
-          value="Male"
+        <input type="radio" id="genderMale" name="gender" value="Male" required
+          />
+        <label for="genderMale">MALE</label>
+      </div>
+          <div class="radio-option">
+            <input type="radio" id="genderFemale" name="gender" value="Female"/>
+            <label for="genderFemale">FEMALE</label>
+          </div>
+        </div>
+      </div>
+
+      <h4>Employee Information</h4>
+      <div class="form-row" required>
+        <label
+          >Employee Type
+          <select name="employeeEmploymentType">
+            <option>Part_Time</option>
+            <option>Regular</option>
+          </select>
+        </label>
+        <label>Date of Hire
+          <input type="date" id="editDateofHire" name="dateofhire" required
+          />
+      </div>
+
+      <!-- Department -->
+      <div class="form-row" required>
+        <label
+          >Department
+          <select name="department">
+            <option>Maintenance</option>
+            <option>Development</option>
+            <option>IT Support</option>
+            <option>Finance</option>
+            <option>Logistics</option>
+            <option>Human Resources</option>
+            <option>Administration</option>
+          </select>
+        </label>
+        <label>Employee Rate/Salary
+          <input
+          name="rate"
+          type="number"
+          placeholder="P 100"
           required
         />
-        <label for="genderMale">Male</label>
+        </label>
       </div>
 
-      <div class="radio-option">
-        <input
-          type="radio"
-          id="genderFemale"
-          name="gender"
-          value="Female"
-        />
-        <label for="genderFemale">Female</label>
+      <div class="form-actions">
+        <button type="submit" class="btn-save">Save</button>
+        <button type="button" class="btn-cancel" data-close="addModal">
+          Cancel
+        </button>
       </div>
-    </div>
+    </form>
   </div>
-  <!-- Position -->
-  <div class="form-row" required>
-    <label
-      >Employee Type
-      <select name="employee type">
-        <option>Part-Time</option>
-        <option>Regular</option>
-      </select>
-    </label>
-      <label>Date of Hire
-        <input
-        type="date"
-        id="editDateofHire"
-        name="dateofhire"
-        placeholder="Full-Time / Part-Time"
-        required
-      />
-      
-  </div>
-
-  <!-- Department -->
-  <div class="form-row" required>
-    <label
-      >Department
-      <select name="department">
-        <option>Maintenance</option>
-        <option>Development</option>
-        <option>IT Support</option>
-        <option>Finance</option>
-        <option>Logistics</option>
-        <option>Human Resources</option>
-        <option>Administration</option>
-      </select>
-    </label>
-  </div>
-
-          <div class="form-actions">
-            <button type="submit" class="btn-save">Save</button>
-            <button type="button" class="btn-cancel" data-close="addModal">
-              Cancel
-            </button>
-          </div>
-        </form>
-      </div>
-    </div>
+</div>
 
     <!-- Edit Employee Modal -->
     <div id="editModal" class="modal" aria-hidden="true">
@@ -318,7 +302,7 @@ class="modal" id="addModal" aria-hidden="true" role="dialog" aria-labelledby="ad
               <label
               >Employee Type
               <select name="employee type">
-                <option>Part-Time</option>
+                <option>Part_Time</option>
                 <option>Regular</option>
               </select>
             </label>
