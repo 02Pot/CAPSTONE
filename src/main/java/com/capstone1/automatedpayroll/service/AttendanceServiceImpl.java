@@ -3,6 +3,8 @@ package com.capstone1.automatedpayroll.service;
 import com.capstone1.automatedpayroll.dto.AttendanceDTO;
 import com.capstone1.automatedpayroll.dto.EarningsDTO;
 import com.capstone1.automatedpayroll.dto.EmployeeDTO;
+import com.capstone1.automatedpayroll.dto.PayrollPeriodDTO;
+import com.capstone1.automatedpayroll.helper.PayrollDateUtils;
 import com.capstone1.automatedpayroll.mapper.AttendanceMapper;
 import com.capstone1.automatedpayroll.mapper.EmployeeMapper;
 import com.capstone1.automatedpayroll.model.AttendanceModel;
@@ -20,6 +22,7 @@ import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -31,6 +34,10 @@ public class AttendanceServiceImpl {
     private EmployeeRepository employeeRepository;
     @Autowired
     private EarningsServiceImpl earningsService;
+    @Autowired
+    private PayrollServiceImpl payrollService;
+    @Autowired
+    private PayrollDateUtils payrollDateUtils;
 
     public void importAttendance(MultipartFile file) {
         try (InputStream is = file.getInputStream();
@@ -74,8 +81,8 @@ public class AttendanceServiceImpl {
                 attendance.setHoursWorked(hoursWorked);
 
                 attendanceRepository.save(attendance);
-            }
 
+            }
         } catch (Exception e) {
             throw new RuntimeException("Error processing Excel file: " + e.getMessage());
         }

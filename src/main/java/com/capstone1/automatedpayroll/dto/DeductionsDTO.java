@@ -15,4 +15,8 @@ public class DeductionsDTO {
     private boolean stationary;
     private String deductionsName;
     private Double deductionsAmount;
+    private double maxAmount;
+
+    private double deductionPercentage;
+
 }

@@ -42,6 +42,8 @@ public class PayMapper {
                 deductionsModel.getDeductionId(),
                 deductionsModel.isStationary(),
                 deductionsModel.getDeductionName(),
+                deductionsModel.getDeductionPercentage(),
+                deductionsModel.getMaxAmount(),
                 deductionsModel.getDeductionAmount()
         );
     }
@@ -54,6 +56,7 @@ public class PayMapper {
                 .deductionName(deductionsDTO.getDeductionsName())
                 .stationary(deductionsDTO.isStationary())
                 .deductionAmount(deductionsDTO.getDeductionsAmount())
+                .maxAmount(deductionsDTO.getMaxAmount())
                 .employee(employee)
                 .build();
     }
