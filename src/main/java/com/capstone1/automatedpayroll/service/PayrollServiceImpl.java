@@ -2,16 +2,10 @@ package com.capstone1.automatedpayroll.service;
 
 import com.capstone1.automatedpayroll.dto.EarningsDTO;
 import com.capstone1.automatedpayroll.helper.PayrollDateUtils;
-import com.capstone1.automatedpayroll.model.AttendanceModel;
-import com.capstone1.automatedpayroll.model.DeductionsModel;
-import com.capstone1.automatedpayroll.model.EarningsModel;
-import com.capstone1.automatedpayroll.model.EmployeeModel;
-import com.capstone1.automatedpayroll.repository.AttendanceRepository;
-import com.capstone1.automatedpayroll.repository.DeductionsRepository;
-import com.capstone1.automatedpayroll.repository.EarningsRepository;
-import com.capstone1.automatedpayroll.repository.EmployeeRepository;
+import com.capstone1.automatedpayroll.model.*;
+import com.capstone1.automatedpayroll.model.enums.EmployeeType;
+import com.capstone1.automatedpayroll.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -33,27 +27,47 @@ public class PayrollServiceImpl {
     private PayrollDateUtils payrollDateUtils;
     @Autowired
     private EarningsServiceImpl earningsService;
+    @Autowired
+    private PayrollRepository payrollRepository;
 
+    private double calculateGrossPay(EmployeeModel employee, List<AttendanceModel> attendances, LocalDate startDate, LocalDate endDate) {
+        if (employee.getEmployeeEmploymentType() == EmployeeType.Regular) {
+            if (attendances == null || attendances.isEmpty()){
+                return 0;
+            }
 
-    private double calculateNetPay(EmployeeModel employee, LocalDate startDate,LocalDate endDate){
-        List<AttendanceModel> attendances = attendanceRepository
-                .findByEmployee_EIdAndAttendanceDateBetween(employee.geteId(), startDate, endDate);
+            double salaryPerCutOff = employee.getMonthlySalary() / 2;
+            double annualSalary = employee.getMonthlySalary() * 12;
+            double dailyRate = annualSalary / 261; //261 ay 247 na ordinary work day + 12 holiday + 2 special holiday
 
-        double totalHours = attendances.stream()
-                .mapToDouble(AttendanceModel::getHoursWorked)
-                .sum();
+            long requiredWorkDays = payrollDateUtils.getWorkingDays(startDate, endDate);
+            long daysAttended = attendances.size(); // Number of days they showed up
 
-        double basicPay = totalHours * employee.getEmployeeRate();
+            long daysAbsent = 0;
+            if (daysAttended < requiredWorkDays) {
+                daysAbsent = requiredWorkDays - daysAttended;
+            }
+            double deductionForAbsence = daysAbsent * dailyRate;
+            double grossPay = salaryPerCutOff - deductionForAbsence;
 
+            return Math.round(grossPay * 100.0) / 100.0;
+        } else {
+            double totalHours = attendances.stream()
+                    .mapToDouble(AttendanceModel::getHoursWorked)
+                    .sum();
+            return totalHours * employee.getEmployeeRate();
+        }
+    }
+
+    private double calculateNetPay(EmployeeModel employee,double grossPay, LocalDate startDate,LocalDate endDate){
         List<EarningsDTO> stationaryEarnings = earningsService.getStationaryEarnings(employee.geteId());
         double stationaryTotal = stationaryEarnings.stream()
                 .mapToDouble(EarningsDTO::getEarningsAmount)
                 .sum();
-
         double nonStationaryTotal = calculateNonStationaryEarnings(employee.geteId(), startDate, endDate);
-        double totalDeductions = calculateTotalDeductions(employee.geteId(), startDate, endDate);
+        double totalDeductions = calculateTotalDeductions(employee.geteId(),grossPay);
 
-        double netPay = basicPay + stationaryTotal + nonStationaryTotal - totalDeductions;
+        double netPay = grossPay + stationaryTotal + nonStationaryTotal - totalDeductions;
         return Math.round(netPay * 100.0) / 100.0;
     }
 
@@ -66,11 +80,60 @@ public class PayrollServiceImpl {
                 .sum();
     }
 
-    private double calculateTotalDeductions(Long employeeId,LocalDate startDate, LocalDate endDate){
-        List<DeductionsModel> earnings = deductionsRepository.findByEmployeeEId(employeeId);
-        return earnings.stream()
+    public double calculateWithHoldingTax(double monthlySalary,double totalStatutoryDeductions){
+        double taxableIncome = monthlySalary - totalStatutoryDeductions;
+
+        if (taxableIncome <= 20833.33){
+            return 0;
+        }
+        //Pag above 20,833
+        double excess = taxableIncome - 20833.33;
+        return excess * 0.15;
+    }
+    //Per CutOFF
+    public double calculatePagIbig(double monthlySalary){
+        double rate = 0;
+        if (monthlySalary <= 1500){
+            rate = 0.01;
+        }else {
+            rate = 0.02;
+        }
+        double contribution = monthlySalary * rate;
+        double monthlyDeduction = Math.min(contribution,200.0);
+        return monthlyDeduction / 2;
+    }
+
+    public double calculatePhilHealth(double monthlySalary){
+        double salaryBase = Math.max(10000.0, Math.min(monthlySalary, 100000.0));
+        double totalMonthlyPremium = salaryBase * 0.05;
+        return (totalMonthlyPremium / 2) / 2;
+    }
+
+    public double calculateGSIS(double monthlySalary){
+        double contribution = monthlySalary * 0.09;
+        return contribution / 2;
+    }
+
+    private double calculateTotalDeductions(Long employeeId,double grossPay){
+        EmployeeModel employee = employeeRepository.findById(employeeId).orElseThrow();
+        double total = 0;
+        double mbs = employee.getMonthlySalary();
+
+        if (employee.getEmployeeEmploymentType() == EmployeeType.Regular){
+            double pagIbig = calculatePagIbig(grossPay);
+            double philHealth = calculatePhilHealth(mbs);
+            double gsis = calculateGSIS(mbs);
+
+            //TODO wala pa withholding tax para sa mataas na sahod
+            total += pagIbig + philHealth + gsis;
+        }
+
+        double otherDeductions = deductionsRepository.findByEmployeeEId(employeeId)
+                .stream()
                 .mapToDouble(DeductionsModel::getDeductionAmount)
                 .sum();
+        total += otherDeductions;
+        return total;
     }
 
     private void clearNonStationaryEarnings(Long employeeId, LocalDate start, LocalDate end) {
@@ -79,7 +142,6 @@ public class PayrollServiceImpl {
                 .filter(e -> !e.isStationary())
                 .filter(e -> !e.getDateCreated().isBefore(start) && !e.getDateCreated().isAfter(end))
                 .toList();
-
         earningsRepository.deleteAll(toDelete);
     }
 
@@ -97,44 +159,43 @@ public class PayrollServiceImpl {
         List<EmployeeModel> employees = employeeRepository.findAll();
 
         for (EmployeeModel employee : employees){
-
             clearNonStationaryEarnings(employee.geteId(),startDate,endDate);
-
             List<AttendanceModel> attendances = attendanceRepository
                     .findByEmployee_EIdAndAttendanceDateBetween(employee.geteId(), startDate, endDate);
 
-            double totalHours = attendances.stream()
-                    .mapToDouble(AttendanceModel::getHoursWorked)
-                    .sum();
+            double grossPay = calculateGrossPay(employee,attendances,startDate,endDate);
 
-            // 3. Create Basic Pay as non-stationary earnings
-            EarningsDTO basicPayDTO = new EarningsDTO();
-            basicPayDTO.setEmployeeId(employee.geteId());
-            basicPayDTO.setEarningsName("Basic Pay");
-            basicPayDTO.setEarningsAmount(totalHours * employee.getEmployeeRate());
-            basicPayDTO.setStationary(false); // non-stationary so it expires after cutoff
-            earningsService.createEarnings(employee.geteId(), basicPayDTO);
+            double totalDeductions = calculateTotalDeductions(employee.geteId(),grossPay);
+            double netPay = calculateNetPay(employee,grossPay, startDate, endDate);
 
-            double netPay = calculateNetPay(employee, startDate, endDate);
-
-            System.out.println("Processed payroll for " + employee.getEmployeeFirstName()+employee.getEmployeeLastName() +
-                    " | Net Pay: " + netPay);
+            PayrollModel payroll = new PayrollModel();
+            payroll.setEmployee(employee);
+            payroll.setStartDate(startDate);
+            payroll.setEndDate(endDate);
+            payroll.setGrossPay(grossPay);
+            payroll.setTotalDeductions(totalDeductions);
+            payroll.setNetPay(netPay);
+            payroll.setDateProcessed(LocalDate.now());
+            payrollRepository.save(payroll);
         }
     }
 
-    @Scheduled(cron = "0 0 0 * * ?") // runs every day at midnight
-    public void runScheduledPayroll() {
-        LocalDate today = LocalDate.now();
-        int day = today.getDayOfMonth();
-        int lastDayOfMonth = today.lengthOfMonth();
 
-        // Only run payroll on cutoff days: 15th or last day
-        if (day == 15 || day == lastDayOfMonth) {
-            System.out.println("Running scheduled payroll for cutoff: " + today);
-            runPayrollCurrentCutOff();
-        } else {
-            System.out.println("Today is not a cutoff. Payroll will not run.");
-        }
-    }
+
+
+//    @Scheduled(cron = "0 0 0 * * ?") // runs every day at midnight //test
+//    public void runScheduledPayroll() {
+//        LocalDate today = LocalDate.now();
+//        int day = today.getDayOfMonth();
+//        int lastDayOfMonth = today.lengthOfMonth();
+//
+//        // Only run payroll on cutoff days: 15th or last day
+//        if (day == 15 || day == lastDayOfMonth) {
+//            System.out.println("Running scheduled payroll for cutoff: " + today);
+//            runPayrollCurrentCutOff();
+//        } else {
+//            System.out.println("Today is not a cutoff. Payroll will not run.");
+//        }
+//    }
 
 }

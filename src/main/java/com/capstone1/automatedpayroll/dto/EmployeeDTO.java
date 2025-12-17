@@ -1,5 +1,6 @@
 package com.capstone1.automatedpayroll.dto;
 
+import com.capstone1.automatedpayroll.model.enums.EmployeeType;
 import com.capstone1.automatedpayroll.model.enums.Gender;
 import lombok.*;
 
@@ -22,22 +23,38 @@ public class EmployeeDTO {
     private String employeeDepartment;
     private LocalDate dateOfHire;
     private Gender employeeGender;
-    private String employeeEmploymentType;
+    private EmployeeType employeeEmploymentType;
     private Long employeeRate;
+    private double monthlySalary;
+    private Long latestPayrollId;
+
+    public Long getLatestPayrollId() {
+        return latestPayrollId;
+    }
+
+    public void setLatestPayrollId(Long latestPayrollId) {
+        this.latestPayrollId = latestPayrollId;
+    }
 
     public Long getEmployeeRate() {
         return employeeRate;
     }
 
+    public void setMonthlySalary(double monthlySalary) {
+        this.monthlySalary = monthlySalary;
+    }
+    public double getMonthlySalary() {
+        return monthlySalary;
+    }
+
     public void setEmployeeRate(Long employeeRate) {
         this.employeeRate = employeeRate;
     }
-
-    public String getEmployeeEmploymentType() {
+    public EmployeeType getEmployeeEmploymentType() {
         return employeeEmploymentType;
     }
 
-    public void setEmployeeEmploymentType(String employeeEmploymentType) {
+    public void setEmployeeEmploymentType(EmployeeType employeeEmploymentType) {
         this.employeeEmploymentType = employeeEmploymentType;
     }
 

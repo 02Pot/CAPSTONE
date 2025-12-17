@@ -1,14 +1,13 @@
 package com.capstone1.automatedpayroll.model;
 
+import com.capstone1.automatedpayroll.model.enums.EmployeeType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
 import lombok.NoArgsConstructor;
 import com.capstone1.automatedpayroll.model.enums.Gender;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -28,10 +27,17 @@ public class EmployeeModel {
     private String employeeAddress;
     @Enumerated(EnumType.STRING)
     private Gender employeeGender;
-    private String employeeEmploymentType;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "employee_employment_type")
+    private EmployeeType employmentType;
+
     private LocalDate dateOfHire;
     private String employeeDepartment;
+
     private Long employeeRate;
+    private double monthlySalary;
+
     @OneToMany(mappedBy = "employee",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private List<EarningsModel> earningsModels;
     @OneToMany(mappedBy = "employee",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
@@ -40,7 +46,8 @@ public class EmployeeModel {
     private List<AttendanceModel> attendanceModels;
 
     public EmployeeModel(Long eId, String employeeEmail, String employeeFirstName, String employeeLastName, long employeeContactNumber,
-                         String employeeAddress,Gender employeeGender, String employeeEmploymentType, LocalDate dateOfHire, String employeeDepartment, Long employeeRate
+                         String employeeAddress, Gender employeeGender, EmployeeType employmentType, LocalDate dateOfHire, String employeeDepartment, Long employeeRate
+                         , double monthlySalary
                          ) {
         this.eId = eId;
         this.employeeEmail = employeeEmail;
@@ -49,7 +56,7 @@ public class EmployeeModel {
         this.employeeContactNumber = employeeContactNumber;
         this.employeeAddress = employeeAddress;
         this.employeeGender = employeeGender;
-        this.employeeEmploymentType = employeeEmploymentType;
+        this.employmentType = employmentType;
         this.dateOfHire = dateOfHire;
         this.employeeDepartment = employeeDepartment;
         this.employeeRate = employeeRate;
@@ -57,6 +64,8 @@ public class EmployeeModel {
 
     public Long getEmployeeRate() {return employeeRate;}
     public void setEmployeeRate(Long employeeRate) {this.employeeRate = employeeRate;}
+    public double getMonthlySalary() {return monthlySalary;}
+    public void setMonthlySalary(double monthlySalary) {this.monthlySalary = monthlySalary;}
     public String getEmployeeEmail() {return employeeEmail;}
     public void setEmployeeEmail(String employeeEmail) {this.employeeEmail = employeeEmail;}
     public String getEmployeeFirstName() {return employeeFirstName;}
@@ -69,8 +78,8 @@ public class EmployeeModel {
     public void setEmployeeAddress(String employeeAddress) {this.employeeAddress = employeeAddress;}
     public void setEmployeeGender(Gender employeeGender) {this.employeeGender = employeeGender;}
     public Gender getEmployeeGender(){return employeeGender;}
-    public String getEmployeeEmploymentType() {return employeeEmploymentType;}
-    public void setEmployeeEmploymentType(String employeeEmploymentType) {this.employeeEmploymentType = employeeEmploymentType;}
+    public EmployeeType getEmployeeEmploymentType() {return employmentType;}
+    public void setEmployeeEmploymentType(EmployeeType employeeType) {this.employmentType = employmentType;}
     public LocalDate getDateOfHire() {return dateOfHire;}
     public void setDateOfHire(LocalDate dateOfHire) {this.dateOfHire = dateOfHire;}
     public String getEmployeeDepartment() {return employeeDepartment;}

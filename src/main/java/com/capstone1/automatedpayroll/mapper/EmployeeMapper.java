@@ -2,11 +2,18 @@ package com.capstone1.automatedpayroll.mapper;
 
 import com.capstone1.automatedpayroll.dto.EmployeeDTO;
 import com.capstone1.automatedpayroll.model.EmployeeModel;
+import com.capstone1.automatedpayroll.model.PayrollModel;
+import com.capstone1.automatedpayroll.repository.PayrollRepository;
 
 public class EmployeeMapper {
 
-    public static EmployeeDTO mapToEmployeeDTO(EmployeeModel employeeModel) {
+    public static EmployeeDTO mapToEmployeeDTO(EmployeeModel employeeModel, PayrollRepository payrollRepository) {
         if (employeeModel == null) return null;
+//        System.out.println("DB: " + employeeModel.getEmployeeEmploymentType());
+        Long latestPayroll = payrollRepository
+                .findTopByEmployee_EIdOrderByDateProcessedDesc(employeeModel.geteId())
+                .map(PayrollModel::getId)
+                .orElse(null);
 
         return new EmployeeDTO(
                 employeeModel.geteId(),
@@ -19,7 +26,10 @@ public class EmployeeMapper {
                 employeeModel.getDateOfHire(),
                 employeeModel.getEmployeeGender(),
                 employeeModel.getEmployeeEmploymentType(),
-                employeeModel.getEmployeeRate()
+                employeeModel.getEmployeeRate(),
+                employeeModel.getMonthlySalary(),
+                latestPayroll
+
         );
     }
 
@@ -28,16 +38,17 @@ public class EmployeeMapper {
 
         return EmployeeModel.builder()
                 .eId(employeeDTO.getEmployeeId())
-                .employeeEmail(employeeDTO.getEmployeeEmail())
                 .employeeFirstName(employeeDTO.getEmployeeFirstName())
                 .employeeLastName(employeeDTO.getEmployeeLastName())
-                .employeeContactNumber(employeeDTO.getEmployeeContactNumber())
                 .employeeAddress(employeeDTO.getEmployeeAddress())
-                .employeeGender(employeeDTO.getEmployeeGender())
-                .employeeEmploymentType(employeeDTO.getEmployeeEmploymentType())
-                .dateOfHire(employeeDTO.getDateOfHire())
+                .employeeContactNumber(employeeDTO.getEmployeeContactNumber())
+                .employeeEmail(employeeDTO.getEmployeeEmail())
                 .employeeDepartment(employeeDTO.getEmployeeDepartment())
+                .dateOfHire(employeeDTO.getDateOfHire())
+                .employeeGender(employeeDTO.getEmployeeGender())
+                .employmentType(employeeDTO.getEmployeeEmploymentType())
                 .employeeRate(employeeDTO.getEmployeeRate())
+                .monthlySalary(employeeDTO.getMonthlySalary())
                 .build();
     }
 }

@@ -84,25 +84,5 @@ public class EarningsServiceImpl {
         earningsRepository.deleteById(earningsId);
     }
 
-    private void createBasicPay(EmployeeModel employee, double basicPay,
-                                LocalDate startDate, LocalDate endDate) {
-        boolean exists = earningsRepository
-                .existsByEmployeeEIdAndEarningNameAndDateCreatedBetween(
-                        employee.geteId(),
-                        "Basic Pay",
-                        startDate,
-                        endDate
-                );
-
-        if (!exists) {
-            EarningsModel basic = new EarningsModel();
-            basic.setEmployee(employee);
-            basic.setEarningName("Basic Pay");
-            basic.setEarningAmount(basicPay);
-            basic.setStationary(false); // cutoff-based
-            earningsRepository.save(basic);
-        }
-    }
-
 
 }
