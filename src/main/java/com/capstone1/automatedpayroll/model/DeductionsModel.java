@@ -1,18 +1,16 @@
 package com.capstone1.automatedpayroll.model;
 
 
-import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "deductions")
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
-@Data
 public class DeductionsModel {
 
     @Id
@@ -28,6 +26,17 @@ public class DeductionsModel {
     @ManyToOne
     @JoinColumn(name = "userId")
     private EmployeeModel employee;
+
+    public DeductionsModel(Long deductionId, String deductionName, Double deductionAmount, boolean stationary
+                        ,double maxAmount,double deductionPercentage ,EmployeeModel employee) {
+        this.deductionId = deductionId;
+        this.deductionName = deductionName;
+        this.deductionAmount = deductionAmount;
+        this.stationary = stationary;
+        this.maxAmount = maxAmount;
+        this.deductionPercentage = deductionPercentage;
+        this.employee = employee;
+    }
 
     public Long getDeductionId() {
         return deductionId;
@@ -86,4 +95,38 @@ public class DeductionsModel {
     }
 
 
+    public static class Builder {
+        private Long deductionId;
+        private String deductionName;
+        private Double deductionAmount;
+        private boolean stationary;
+        private double maxAmount;
+        private double deductionPercentage;
+        private EmployeeModel employee;
+
+
+        public Builder deductionId(Long deductionId) { this.deductionId = deductionId; return this; }
+        public Builder deductionName(String deductionName) { this.deductionName = deductionName; return this; }
+        public Builder deductionAmount(Double deductionAmount) { this.deductionAmount = deductionAmount; return this; }
+        public Builder stationary(boolean stationary) { this.stationary = stationary; return this; }
+        public Builder maxAmount(double maxAmount) { this.maxAmount = maxAmount; return this; }
+        public Builder deductionPercentage(double deductionPercentage) { this.deductionPercentage = deductionPercentage; return this; }
+        public Builder employee(EmployeeModel employee) { this.employee = employee; return this; }
+
+        public DeductionsModel build() {
+            return new DeductionsModel(
+                    deductionId,
+                    deductionName,
+                    deductionAmount,
+                    stationary,
+                    maxAmount,
+                    deductionPercentage,
+                    employee
+            );
+        }
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
 }

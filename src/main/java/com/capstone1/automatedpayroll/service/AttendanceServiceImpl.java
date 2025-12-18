@@ -1,29 +1,28 @@
 package com.capstone1.automatedpayroll.service;
 
-import com.capstone1.automatedpayroll.dto.AttendanceDTO;
-import com.capstone1.automatedpayroll.dto.EarningsDTO;
-import com.capstone1.automatedpayroll.dto.EmployeeDTO;
-import com.capstone1.automatedpayroll.dto.PayrollPeriodDTO;
-import com.capstone1.automatedpayroll.helper.PayrollDateUtils;
-import com.capstone1.automatedpayroll.mapper.AttendanceMapper;
-import com.capstone1.automatedpayroll.mapper.EmployeeMapper;
-import com.capstone1.automatedpayroll.model.AttendanceModel;
-import com.capstone1.automatedpayroll.model.EmployeeModel;
-import com.capstone1.automatedpayroll.model.report.AttendanceImportSummary;
-import com.capstone1.automatedpayroll.repository.AttendanceRepository;
-import com.capstone1.automatedpayroll.repository.EmployeeRepository;
-import org.apache.poi.ss.usermodel.*;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
-
 import java.io.InputStream;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
+
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellType;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.WorkbookFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+import com.capstone1.automatedpayroll.dto.AttendanceDTO;
+import com.capstone1.automatedpayroll.mapper.AttendanceMapper;
+import com.capstone1.automatedpayroll.model.AttendanceModel;
+import com.capstone1.automatedpayroll.model.EmployeeModel;
+import com.capstone1.automatedpayroll.repository.AttendanceRepository;
+import com.capstone1.automatedpayroll.repository.EmployeeRepository;
 
 @Service
 public class AttendanceServiceImpl {
@@ -32,16 +31,10 @@ public class AttendanceServiceImpl {
     private AttendanceRepository attendanceRepository;
     @Autowired
     private EmployeeRepository employeeRepository;
-    @Autowired
-    private EarningsServiceImpl earningsService;
-    @Autowired
-    private PayrollServiceImpl payrollService;
-    @Autowired
-    private PayrollDateUtils payrollDateUtils;
 
     public void importAttendance(MultipartFile file) {
         try (InputStream is = file.getInputStream();
-             Workbook workbook = WorkbookFactory.create(is)) {
+            Workbook workbook = WorkbookFactory.create(is)) {
 
             Sheet sheet = workbook.getSheetAt(0);
 

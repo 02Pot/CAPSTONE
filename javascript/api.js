@@ -1,7 +1,7 @@
  async function protectedData() {
         const token = localStorage.getItem("jwtToken");
         try {
-            const response = await fetch("http://localhost:8080/users/login",{
+            const response = await fetch("http://localhost:8081/users/login",{
                 headers:{
                     'Authorization': `Bearer ${token}`
                 }

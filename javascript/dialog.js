@@ -7,7 +7,7 @@ async function showPayrollDialog(payrollId) {
     const token = localStorage.getItem("jwtToken");
 
     try {
-        const res = await fetch(`http://localhost:8080/payroll/${payrollId}`, {
+        const res = await fetch(`http://localhost:8081/payroll/${payrollId}`, {
             headers: { "Authorization": `Bearer ${token}` }
         });
         // console.log("Fetching payslip for payrollId:", payrollId);
@@ -104,5 +104,5 @@ function loadDialog() {
 
 document.addEventListener("DOMContentLoaded", () => {
     loadDialog();  // load dialog
-    loadIntoTable("http://localhost:8080/api/employee", document.querySelector(".emp-table"));
+    loadIntoTable("http://localhost:8081/api/employee", document.querySelector(".emp-table"));
 });

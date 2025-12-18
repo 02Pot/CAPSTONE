@@ -1,20 +1,19 @@
 package com.capstone1.automatedpayroll.model;
 
-import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import java.time.LocalDate;
+
 import org.hibernate.annotations.CreationTimestamp;
 
-import java.time.LocalDate;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "earnings")
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
-@Data
 public class EarningsModel {
 
     @Id
@@ -29,6 +28,18 @@ public class EarningsModel {
     @ManyToOne
     @JoinColumn(name = "userId")
     private EmployeeModel employee;
+
+    public EarningsModel() {}
+
+    public EarningsModel(Long earningId, String earningName, Double earningAmount, boolean stationary,
+                        LocalDate dateCreated, EmployeeModel employee) {
+        this.earningId = earningId;
+        this.earningName = earningName;
+        this.earningAmount = earningAmount;
+        this.stationary = stationary;
+        this.dateCreated = dateCreated;
+        this.employee = employee;
+    }
 
     public Long getEarningId() {
         return earningId;
@@ -78,5 +89,50 @@ public class EarningsModel {
         this.employee = employee;
     }
 
+    public static class Builder {
+        private Long earningId;
+        private String earningName;
+        private Double earningAmount;
+        private boolean stationary;
+        private LocalDate dateCreated;
+        private EmployeeModel employee;
 
+        public Builder earningId(Long earningId) {
+            this.earningId = earningId;
+            return this;
+        }
+
+        public Builder earningName(String earningName) {
+            this.earningName = earningName;
+            return this;
+        }
+
+        public Builder earningAmount(Double earningAmount) {
+            this.earningAmount = earningAmount;
+            return this;
+        }
+
+        public Builder stationary(boolean stationary) {
+            this.stationary = stationary;
+            return this;
+        }
+
+        public Builder dateCreated(LocalDate dateCreated) {
+            this.dateCreated = dateCreated;
+            return this;
+        }
+
+        public Builder employee(EmployeeModel employee) {
+            this.employee = employee;
+            return this;
+        }
+
+        public EarningsModel build() {
+            return new EarningsModel(earningId, earningName, earningAmount, stationary, dateCreated, employee);
+        }
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
 }

@@ -1,22 +1,12 @@
 package com.capstone1.automatedpayroll.model;
 
-import java.time.LocalDateTime;
-
-import org.hibernate.annotations.CreationTimestamp;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
 
 @Entity
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
 @Table(name = "users")
 public class UserModel {
     
@@ -28,6 +18,8 @@ public class UserModel {
     private String userFirstName;
     private String userLastName;
     private long userNumber;
+
+    public UserModel(){}
 
     public UserModel(Long userId, String userEmail, String userFirstName, String userLastName, long userNumber) {
         this.uId = userId;

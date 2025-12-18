@@ -13,17 +13,9 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "attendance")
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
 public class AttendanceModel {
 
     public static double getHoursWorked(T value) {
@@ -43,6 +35,18 @@ public class AttendanceModel {
     private LocalTime timeOut;
 
     private Double hoursWorked;
+
+    public AttendanceModel() {}
+
+    public AttendanceModel(Long attendanceId, EmployeeModel employee, LocalDate attendanceDate,
+                        LocalTime timeIn, LocalTime timeOut, Double hoursWorked) {
+        this.attendanceId = attendanceId;
+        this.employee = employee;
+        this.attendanceDate = attendanceDate;
+        this.timeIn = timeIn;
+        this.timeOut = timeOut;
+        this.hoursWorked = hoursWorked;
+    }
 
     public Long getAttendanceId() {
         return attendanceId;
@@ -90,6 +94,34 @@ public class AttendanceModel {
 
     public void setHoursWorked(Double hoursWorked) {
         this.hoursWorked = hoursWorked;
+    }
+
+    public static class Builder {
+        private Long attendanceId;
+        private EmployeeModel employee;
+        private LocalDate attendanceDate;
+        private LocalTime timeIn;
+        private LocalTime timeOut;
+        private Double hoursWorked;
+
+        public Builder attendanceId(Long attendanceId) { this.attendanceId = attendanceId; return this; }
+        public Builder employee(EmployeeModel employee) { this.employee = employee; return this; }
+        public Builder attendanceDate(LocalDate attendanceDate) { this.attendanceDate = attendanceDate; return this; }
+        public Builder timeIn(LocalTime timeIn) { this.timeIn = timeIn; return this; }
+        public Builder timeOut(LocalTime timeOut) { this.timeOut = timeOut; return this; }
+        public Builder hoursWorked(Double hoursWorked) { this.hoursWorked = hoursWorked; return this; }
+
+        public AttendanceModel build() {
+            return new AttendanceModel(attendanceId, employee, attendanceDate, timeIn, timeOut, hoursWorked);
+        }
+    }
+
+    public static Builder builder() { return new Builder(); }
+
+    public static double getHoursWorked(LocalTime timeIn, LocalTime timeOut) {
+        if (timeIn == null || timeOut == null) return 0.0;
+        return java.time.Duration.between(timeIn, timeOut).toHours() +
+            java.time.Duration.between(timeIn, timeOut).toMinutesPart() / 60.0;
     }
 
 }

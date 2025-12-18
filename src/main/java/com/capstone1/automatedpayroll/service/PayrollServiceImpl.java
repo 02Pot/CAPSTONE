@@ -1,16 +1,25 @@
 package com.capstone1.automatedpayroll.service;
 
-import com.capstone1.automatedpayroll.dto.EarningsDTO;
-import com.capstone1.automatedpayroll.helper.PayrollDateUtils;
-import com.capstone1.automatedpayroll.model.*;
-import com.capstone1.automatedpayroll.model.enums.EmployeeType;
-import com.capstone1.automatedpayroll.repository.*;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.capstone1.automatedpayroll.dto.EarningsDTO;
+import com.capstone1.automatedpayroll.helper.PayrollDateUtils;
+import com.capstone1.automatedpayroll.model.AttendanceModel;
+import com.capstone1.automatedpayroll.model.DeductionsModel;
+import com.capstone1.automatedpayroll.model.EarningsModel;
+import com.capstone1.automatedpayroll.model.EmployeeModel;
+import com.capstone1.automatedpayroll.model.PayrollModel;
+import com.capstone1.automatedpayroll.model.enums.EmployeeType;
+import com.capstone1.automatedpayroll.repository.AttendanceRepository;
+import com.capstone1.automatedpayroll.repository.DeductionsRepository;
+import com.capstone1.automatedpayroll.repository.EarningsRepository;
+import com.capstone1.automatedpayroll.repository.EmployeeRepository;
+import com.capstone1.automatedpayroll.repository.PayrollRepository;
 
 @Service
 public class PayrollServiceImpl {
@@ -92,7 +101,7 @@ public class PayrollServiceImpl {
     }
     //Per CutOFF
     public double calculatePagIbig(double monthlySalary){
-        double rate = 0;
+        double rate;
         if (monthlySalary <= 1500){
             rate = 0.01;
         }else {

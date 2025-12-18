@@ -22,7 +22,7 @@ async function loadAttendanceTable() {
     const token = localStorage.getItem("jwtToken");
 
     try {
-        const res = await fetch("http://localhost:8080/attendance", {
+        const res = await fetch("http://localhost:8081/attendance", {
             headers: { "Authorization": `Bearer ${token}` }
         });
 
@@ -50,7 +50,7 @@ document.getElementById("attendanceFile").addEventListener("change", async funct
     const token = localStorage.getItem("jwtToken");
 
     try {
-        const res = await fetch("http://localhost:8080/attendance/import", {
+        const res = await fetch("http://localhost:8081/attendance/import", {
             method: "POST",
             headers: { "Authorization": `Bearer ${token}` },
             body: formData
@@ -73,7 +73,7 @@ document.getElementById("runPayrollBtn").addEventListener("click", async () => {
     const token = localStorage.getItem("jwtToken");
 
     try {
-        const res = await fetch("http://localhost:8080/payroll/run-cutoff", {
+        const res = await fetch("http://localhost:8081/payroll/run-cutoff", {
             method: "POST",
             headers: { "Content-Type": "application/json" ,
                 "Authorization": `Bearer ${token}`

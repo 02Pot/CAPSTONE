@@ -1,18 +1,22 @@
 package com.capstone1.automatedpayroll.dto;
 
-import com.capstone1.automatedpayroll.model.EmployeeModel;
-import lombok.*;
-
-@Setter
-@Getter
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
 public class EarningsDTO {
 
     private Long employeeId;
     private Long earningsId;
     private boolean stationary;
+    private String earningsName;
+    private Double earningsAmount;
+    
+    public EarningsDTO() {}
+
+    public EarningsDTO(Long employeeId, Long earningsId, boolean stationary, String earningsName, Double earningsAmount) {
+        this.employeeId = employeeId;
+        this.earningsId = earningsId;
+        this.stationary = stationary;
+        this.earningsName = earningsName;
+        this.earningsAmount = earningsAmount;
+    }
 
     public Long getEmployeeId() {
         return employeeId;
@@ -54,6 +58,45 @@ public class EarningsDTO {
         this.earningsAmount = earningsAmount;
     }
 
-    private String earningsName;
-    private Double earningsAmount;
+    public static class Builder {
+        private Long employeeId;
+        private Long earningsId;
+        private boolean stationary;
+        private String earningsName;
+        private Double earningsAmount;
+
+        public Builder employeeId(Long employeeId) {
+            this.employeeId = employeeId;
+            return this;
+        }
+
+        public Builder earningsId(Long earningsId) {
+            this.earningsId = earningsId;
+            return this;
+        }
+
+        public Builder stationary(boolean stationary) {
+            this.stationary = stationary;
+            return this;
+        }
+
+        public Builder earningsName(String earningsName) {
+            this.earningsName = earningsName;
+            return this;
+        }
+
+        public Builder earningsAmount(Double earningsAmount) {
+            this.earningsAmount = earningsAmount;
+            return this;
+        }
+
+        public EarningsDTO build() {
+            return new EarningsDTO(employeeId, earningsId, stationary, earningsName, earningsAmount);
+        }
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
 }

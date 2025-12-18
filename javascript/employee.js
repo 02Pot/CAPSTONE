@@ -92,7 +92,7 @@ function connectAddEmployeeForm() {
         try {
             const token = localStorage.getItem("jwtToken");
 
-            const res = await fetch("http://localhost:8080/api/employee", {
+            const res = await fetch("http://localhost:8081/api/employee", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -144,10 +144,10 @@ async function openEmployeeDetails(emp) {
   const token = localStorage.getItem("jwtToken");
 
   const [earningsRes, deductionsRes] = await Promise.all([
-    fetch(`http://localhost:8080/earnings/${emp.employeeId}`, {
+    fetch(`http://localhost:8081/earnings/${emp.employeeId}`, {
       headers: { "Authorization": `Bearer ${token}` }
     }),
-    fetch(`http://localhost:8080/deductions/${emp.employeeId}`, {
+    fetch(`http://localhost:8081/deductions/${emp.employeeId}`, {
       headers: { "Authorization": `Bearer ${token}` }
     })
   ]);
@@ -253,5 +253,5 @@ async function loadDialog() {
 
 document.addEventListener("DOMContentLoaded", async () => {
     loadDialog();  // wait for dialog to laod
-    loadIntoTable("http://localhost:8080/api/employee", document.querySelector(".emp-table"));
+    loadIntoTable("http://localhost:8081/api/employee", document.querySelector(".emp-table"));
 });

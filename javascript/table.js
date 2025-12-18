@@ -53,6 +53,6 @@ async function loadIntoTable(url, table) {
 document.addEventListener("DOMContentLoaded",() => {
     const employeeTable = document.querySelector(".emp-table");
     // console.log(employeeTable);
-    loadIntoTable("http://localhost:8080/api/employee", employeeTable);
+    loadIntoTable("http://localhost:8081/api/employee", employeeTable);
 })
 
