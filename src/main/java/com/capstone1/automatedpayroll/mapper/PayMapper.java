@@ -2,11 +2,9 @@ package com.capstone1.automatedpayroll.mapper;
 
 import com.capstone1.automatedpayroll.dto.DeductionsDTO;
 import com.capstone1.automatedpayroll.dto.EarningsDTO;
-import com.capstone1.automatedpayroll.dto.EmployeeDTO;
 import com.capstone1.automatedpayroll.model.DeductionsModel;
 import com.capstone1.automatedpayroll.model.EarningsModel;
 import com.capstone1.automatedpayroll.model.EmployeeModel;
-import com.capstone1.automatedpayroll.repository.EmployeeRepository;
 
 public class PayMapper {
 
@@ -42,6 +40,8 @@ public class PayMapper {
                 deductionsModel.getDeductionId(),
                 deductionsModel.isStationary(),
                 deductionsModel.getDeductionName(),
+                deductionsModel.getDeductionPercentage(),
+                deductionsModel.getMaxAmount(),
                 deductionsModel.getDeductionAmount()
         );
     }
@@ -54,6 +54,7 @@ public class PayMapper {
                 .deductionName(deductionsDTO.getDeductionsName())
                 .stationary(deductionsDTO.isStationary())
                 .deductionAmount(deductionsDTO.getDeductionsAmount())
+                .maxAmount(deductionsDTO.getMaxAmount())
                 .employee(employee)
                 .build();
     }

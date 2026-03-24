@@ -1,25 +1,31 @@
 package com.capstone1.automatedpayroll.controller;
 
 
-import com.capstone1.automatedpayroll.dto.PayrollPeriodDTO;
-import com.capstone1.automatedpayroll.helper.PayrollDateUtils;
-import com.capstone1.automatedpayroll.service.PayrollServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-
-import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.capstone1.automatedpayroll.dto.PayslipDTO;
+import com.capstone1.automatedpayroll.service.PayrollServiceImpl;
+import com.capstone1.automatedpayroll.service.PayslipServiceImpl;
+
 @RestController
 @RequestMapping("/payroll")
-@CrossOrigin
+@CrossOrigin("*")
 public class PayrollController {
 
     @Autowired
     private PayrollServiceImpl payrollService;
     @Autowired
-    private PayrollDateUtils payrollDateUtils;
+    private PayslipServiceImpl payslipService;
+
 
     @PostMapping("/run-cutoff")
     public Map<String, Object> runPayroll(){
@@ -32,10 +38,9 @@ public class PayrollController {
         return response;
     }
 
-    @GetMapping("/payroll-period")
-    public PayrollPeriodDTO getCurrentPayrollPeriod(){
-        Map.Entry<LocalDate,LocalDate> cutOff = payrollDateUtils.getCutOffPeriod(LocalDate.now());
-        return new PayrollPeriodDTO(cutOff.getKey(),cutOff.getValue());
+    @GetMapping("/{payrollId}")
+    public PayslipDTO getPayslip(@PathVariable Long payrollId){
+        return payslipService.generatePayslip(payrollId);
     }
 
 }

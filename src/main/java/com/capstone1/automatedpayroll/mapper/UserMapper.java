@@ -1,7 +1,5 @@
 package com.capstone1.automatedpayroll.mapper;
 
-import com.capstone1.automatedpayroll.dto.UserDTO;
-import com.capstone1.automatedpayroll.model.UserModel;
 
 public class UserMapper {
     

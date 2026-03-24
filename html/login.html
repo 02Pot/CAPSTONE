@@ -19,17 +19,14 @@
         <h2>Login</h2>
         <p>Please log in into your account</p>
 
-        <form>
+        <form id="login-form">
             <label>Email</label>
-            <input type="email" placeholder="Ptc email" required>
+            <input type="email" id="email" placeholder="Ptc email" required>
 
             <label>Password</label>
             <div class="password-wrapper">
-                <input type="password" placeholder="************" required>
+                <input type="password" id="password" placeholder="************" required>
             </div>
-
-            <!-- EMPTY SPACER TO KEEP SAME SPACING -->
-            <div class="spacer"></div>
 
             <button type="submit">Sign in</button>
         </form>
@@ -37,5 +34,6 @@
         <p id="message" class="message"></p>
     </div>
 
+<script src="/javascript/login.js"></script>
 </body>
 </html>

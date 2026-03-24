@@ -1,27 +1,32 @@
 package com.capstone1.automatedpayroll.service;
 
-import com.capstone1.automatedpayroll.dto.EmployeeDTO;
-import com.capstone1.automatedpayroll.mapper.EmployeeMapper;
-import com.capstone1.automatedpayroll.model.EmployeeModel;
-import com.capstone1.automatedpayroll.repository.EmployeeRepository;
-import jakarta.persistence.EntityNotFoundException;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.stream.Collectors;
+import com.capstone1.automatedpayroll.dto.EmployeeDTO;
+import com.capstone1.automatedpayroll.mapper.EmployeeMapper;
+import com.capstone1.automatedpayroll.model.EmployeeModel;
+import com.capstone1.automatedpayroll.repository.EmployeeRepository;
+import com.capstone1.automatedpayroll.repository.PayrollRepository;
+
+import jakarta.persistence.EntityNotFoundException;
 
 @Service
 public class EmployeeServiceImpl {
 
     @Autowired
     private EmployeeRepository employeeRepository;
+    @Autowired
+    private PayrollRepository payrollRepository;
 
     public List<EmployeeDTO> findAllEmployees(){
         return employeeRepository.findAll()
                 .stream()
-                .map(EmployeeMapper::mapToEmployeeDTO)
+                .map(emp -> EmployeeMapper.mapToEmployeeDTO(emp,payrollRepository))
                 .collect(Collectors.toList());
     }
 
@@ -29,7 +34,7 @@ public class EmployeeServiceImpl {
         EmployeeModel employee = employeeRepository.findById(employeeId)
                 .orElseThrow(() -> new UsernameNotFoundException("No User with Id of " + employeeId));
 
-        return EmployeeMapper.mapToEmployeeDTO(employee);
+        return EmployeeMapper.mapToEmployeeDTO(employee,payrollRepository);
     }
 
     public EmployeeDTO createEmployee(EmployeeDTO employeeDTO){
@@ -38,7 +43,7 @@ public class EmployeeServiceImpl {
 
         EmployeeModel saved = employeeRepository.save(employee);
 
-        return EmployeeMapper.mapToEmployeeDTO(saved);
+        return EmployeeMapper.mapToEmployeeDTO(saved,payrollRepository);
     }
 
     public EmployeeDTO updateEmployee( Long employeeId,EmployeeDTO employeeDTO) {
@@ -74,7 +79,7 @@ public class EmployeeServiceImpl {
 
         EmployeeModel updated = employeeRepository.save(existingEmployee);
 
-        return EmployeeMapper.mapToEmployeeDTO(updated);
+        return EmployeeMapper.mapToEmployeeDTO(updated,payrollRepository);
     }
 
     public void deleteEmployee(Long employeeId){

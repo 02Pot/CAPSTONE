@@ -8,11 +8,11 @@
 		<version>3.3.4</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.expensetracker</groupId>
-	<artifactId>etrackerapi</artifactId>
+	<groupId>com.automatedpayroll</groupId>
+	<artifactId>automatedpayroll</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>etrackerapi</name>
-	<description>Expense Tracker APIS</description>
+	<name>automatedpayroll</name>
+	<description>AutomatedPayroll APIS</description>
 	<url/>
 	<licenses>
 		<license/>
@@ -27,7 +27,7 @@
 		<url/>
 	</scm>
 	<properties>
-		<java.version>23</java.version>
+		<java.version>21</java.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -55,11 +55,6 @@
 			<groupId>com.mysql</groupId>
 			<artifactId>mysql-connector-j</artifactId>
 			<scope>runtime</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-			<optional>true</optional>
 		</dependency>
 
 		<dependency>
@@ -118,15 +113,11 @@
 	<build>
 		<plugins>
 			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
+				<groupId>org.apache.maven.plugins</groupId>
+           		<artifactId>maven-compiler-plugin</artifactId>
+           		<version>3.13.0</version>
 				<configuration>
-					<excludes>
-						<exclude>
-							<groupId>org.projectlombok</groupId>
-							<artifactId>lombok</artifactId>
-						</exclude>
-					</excludes>
+					<release>21</release>
 				</configuration>
 			</plugin>
 		</plugins>
