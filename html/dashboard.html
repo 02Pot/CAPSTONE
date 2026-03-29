@@ -4,58 +4,137 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
-    <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="/css/employee.css">
-    <link rel="stylesheet" href="/css/employee-details.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
 </head>
+
 <body>
+
 <script>
-    // JWT check
     const token = localStorage.getItem("jwtToken");
     if (!token) {
         window.location.href = "login.html";
     }
 </script>
+
 <div class="container">
-<div class="sidebar">
-  <div class="logo">
-    <img src="/assets/logo-ptc.png" alt="Logo">
-  </div>
-  <p class="menu-title">Menu</p>
-  <div class="menu-list">
-    <a href="../html/dashboard.html" class="menu-item"> 
-      <span class="icon">📊</span> DASHBOARD
-    </a> 
-    <a href="../html/payroll.html" class="menu-item">
-      <span class="icon">📊</span> PAYROLL
-    </a>
-    <a href="../html/employees.html" class="menu-item">
-      <span class="icon">👥</span> EMPLOYEES
-    </a>
-    <a href="../html/reports.html" class="menu-item">
-      <span class="icon">📁</span> REPORTS
-    </a>
-  </div>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="logo">
+            <img src="/assets/logo-ptc.png" alt="Logo">
+        </div>
+
+        <p class="menu-title">Menu</p>
+
+        <div class="menu-list">
+            <a href="../html/dashboard.html" class="menu-item">
+                <span class="icon">📊</span> DASHBOARD
+            </a>
+            <a href="../html/payroll.html" class="menu-item">
+                <span class="icon">📊</span> PAYROLL
+            </a>
+            <a href="../html/employees.html" class="menu-item">
+                <span class="icon">👥</span> EMPLOYEES
+            </a>
+            <a href="../html/reports.html" class="menu-item">
+                <span class="icon">📁</span> REPORTS
+            </a>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="class">
+            <h1>Dashboard</h1>
+        </div>
+
+        <!-- Green section -->
+        <div class="green-section">
+            <!-- Stat Cards -->
+            <div class="stat-grid">
+                <div class="stat-card">
+                    <div class="stat-card-header">
+                        <i class="fas fa-user-check"></i> Upcoming Payroll Date
+                    </div>
+                    <div class="stat-main">12/25/2025</div>
+                    <div class="stat-sub">Days Remaining: <span id="daysRemaining">35</span></div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-card-header">
+                        <i class="fas fa-user-check"></i> Total Employee
+                    </div>
+                    <div class="stat-main" id="totalEmployee">220</div>
+                    <div class="stat-sub">Overall Employee</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-card-header">
+                        <i class="fas fa-user-check"></i> Payroll Generated
+                    </div>
+                    <div class="stat-main" id="payrollGenerated">220</div>
+                    <div class="stat-sub">Last payroll total generated</div>
+                </div>
+            </div>
+
+            <!-- Chart Card -->
+            <div class="chart-card">
+                <div class="chart-card-header">
+                    <div class="chart-card-title">Employee per Department + Filter Month + Week</div>
+                </div>
+
+                <div class="chart-inner">
+                    <div class="chart-wrapper">
+                        <canvas id="deptChart"></canvas>
+                    </div>
+
+                    <div class="percent-panel">
+                        <h3>Percent of Employee<br>per Department</h3>
+
+                        <div class="percent-item">
+                            <div class="dept-name">Hotel Restaurant Management</div>
+                            <div class="bar-row">
+                                <div class="bar-bg">
+                                    <div class="bar-fill" style="width:20%; background:#4ecdc4;"></div>
+                                </div>
+                                <div class="pct-label" style="color:#3d4142;">20%</div>
+                            </div>
+                        </div>
+
+                        <div class="percent-item">
+                            <div class="dept-name">Information Technology</div>
+                            <div class="bar-row">
+                                <div class="bar-bg">
+                                    <div class="bar-fill" style="width:50%; background:#1a8fa0;"></div>
+                                </div>
+                                <div class="pct-label" style="color:#3d4142;">50%</div>
+                            </div>
+                        </div>
+
+                        <div class="percent-item">
+                            <div class="dept-name">Office Administration</div>
+                            <div class="bar-row">
+                                <div class="bar-bg">
+                                    <div class="bar-fill" style="width:30%; background:#3d5a80;"></div>
+                                </div>
+                                <div class="pct-label" style="color:#3d4142;">30%</div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
 </div>
 
-<div class="main-content" style="min-height: 100vh;">
-
-  <!-- White header -->
-  <h1 style="background-color: white; margin: 0; padding: 20px; width: 100vh;">
-    Dashboard
-  </h1>
-
-<!-- Green section full width -->
-<!-- Green section full width, edge-to-edge -->
-<div style="background-color: rgb(193, 245, 193); min-height: calc(100vh - 80px); width: 100%; margin: 0; padding: 20px; box-sizing: border-box;">
-    <div class="dashboard">halo</div>
-</div>
-
-</div>
-
-<script src="../javascript/employee.js"></script>
+<script src="../javascript/dashboard.js"></script>
 
 </body>
 </html>
