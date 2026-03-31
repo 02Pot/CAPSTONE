@@ -48,28 +48,24 @@ public class PayslipServiceImpl {
                 .mapToDouble(EarningsDTO::getEarningsAmount)
                 .sum();
 
-        List<EarningsModel> nonStationary = earningsRepository.findByEmployeeEId(emp.geteId())
-                .stream()
-                .filter(e -> !e.isStationary())
-                .filter(e -> !e.getDateCreated().isBefore(payroll.getStartDate()) &&
-                        !e.getDateCreated().isAfter(payroll.getEndDate()))
-                .toList();
+        double nonStationaryTotal = payroll.getNonStationaryEarnings();
+        List<Map<String, Object>> earningsList = new java.util.ArrayList<>();
 
-        List<Map<String,Object>> earningsList = new java.util.ArrayList<>();
+        switch (emp.getEmployeeEmploymentType()) {
+            case Regular -> earningsList.add(Map.of("name", "Basic Pay", "amount", emp.getMonthlySalary()));
+            case Part_Time -> earningsList.add(Map.of("name", "Basic Pay", "amount", emp.getEmployeeRate()));
+        }
 
-        // Basic pay
-        earningsList.add(Map.of("name","Basic Pay","amount",payroll.getGrossPay()));
         stationaryEarnings.forEach(e -> earningsList.add(Map.of(
                 "name", e.getEarningsName(),
                 "amount", e.getEarningsAmount()
         )));
-        nonStationary.forEach(e -> earningsList.add(Map.of(
-                "name", e.getEarningName(),
-                "amount", e.getEarningAmount()
-        )));
 
-        double totalEarnings = payroll.getGrossPay() + stationaryTotal +
-                nonStationary.stream().mapToDouble(EarningsModel::getEarningAmount).sum();
+        if (nonStationaryTotal > 0) {
+            earningsList.add(Map.of("name", "Non-Stationary Earnings", "amount", nonStationaryTotal));
+        }
+
+        double totalEarnings = payroll.getGrossPay() + stationaryTotal + nonStationaryTotal;
 
         // Deductions
         List<DeductionsModel> otherDeductions = deductionsRepository.findByEmployeeEId(emp.geteId());
@@ -98,9 +94,9 @@ public class PayslipServiceImpl {
                 "amount", d.getDeductionAmount()
         )));
 
-            totalDeductions += otherDeductions.stream()
-                .mapToDouble(DeductionsModel::getDeductionAmount)
-                .sum();
+        totalDeductions += otherDeductions.stream()
+            .mapToDouble(DeductionsModel::getDeductionAmount)
+            .sum();
 
         PayslipDTO dto = new PayslipDTO();
         dto.setEmployeeName(emp.getEmployeeFirstName()+emp.getEmployeeLastName());

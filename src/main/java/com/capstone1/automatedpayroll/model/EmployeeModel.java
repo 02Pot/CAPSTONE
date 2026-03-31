@@ -44,10 +44,12 @@ public class EmployeeModel {
     private List<DeductionsModel> deductionsModels;
     @OneToMany(mappedBy = "employee",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private List<AttendanceModel> attendanceModels;
+    @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    private List<PayrollModel> payrollModel;
 
     public EmployeeModel(Long eId, String employeeEmail, String employeeFirstName, String employeeLastName, long employeeContactNumber,
                          String employeeAddress, Gender employeeGender, EmployeeType employmentType, LocalDate dateOfHire, String employeeDepartment, Long employeeRate
-                         , double monthlySalary
+                         , double monthlySalary, List<DeductionsModel> deductionsModel, List<EarningsModel> earningsModel
                          ) {
         this.eId = eId;
         this.employeeEmail = employeeEmail;
@@ -60,6 +62,8 @@ public class EmployeeModel {
         this.dateOfHire = dateOfHire;
         this.employeeDepartment = employeeDepartment;
         this.employeeRate = employeeRate;
+        this.deductionsModels = deductionsModel;
+        this.earningsModels = earningsModel;
     }
 
     public Long getEmployeeRate() {return employeeRate;}
@@ -86,6 +90,10 @@ public class EmployeeModel {
     public void setEmployeeDepartment(String employeeDepartment) {this.employeeDepartment = employeeDepartment;}
     public Long geteId() {return eId;}
     public void seteId(Long eId) {this.eId = eId;}
-
-
+    public void setEarningsModels (List<EarningsModel> earningsModels) {this.earningsModels = earningsModels;}
+    public List<EarningsModel> getEarningsModel(){return earningsModels;}
+    public void setDeductionsModels(List<DeductionsModel> deductionsModels) {this.deductionsModels = deductionsModels;}
+    public List<DeductionsModel> getDeductionsModel(){return deductionsModels;}
+    public void setPayrollModel(List<PayrollModel> payrollModel) {this.payrollModel = payrollModel;}
+    public List<PayrollModel> getPayrollModel() {return payrollModel;}
 }

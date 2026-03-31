@@ -26,6 +26,7 @@ public class EarningsModel {
     private boolean stationary;
     @CreationTimestamp
     private LocalDate dateCreated;
+    private Long processInPayroll;
     @ManyToOne
     @JoinColumn(name = "userId")
     private EmployeeModel employee;

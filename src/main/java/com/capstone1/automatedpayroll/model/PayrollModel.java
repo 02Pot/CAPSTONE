@@ -11,7 +11,9 @@ public class PayrollModel {
     private Long id;
 
     @ManyToOne
+    @JoinColumn(name = "userId")
     private EmployeeModel employee;
+    private double nonStationaryEarnings;
 
     private LocalDate startDate;
     private LocalDate endDate;
@@ -86,4 +88,11 @@ public class PayrollModel {
 
     private LocalDate dateProcessed;
 
+    public double getNonStationaryEarnings() {
+        return nonStationaryEarnings;
+    }
+
+    public void setNonStationaryEarnings(double nonStationaryEarnings) {
+        this.nonStationaryEarnings = nonStationaryEarnings;
+    }
 }
