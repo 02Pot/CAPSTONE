@@ -5,7 +5,6 @@ import com.capstone1.automatedpayroll.helper.PayrollDateUtils;
 import com.capstone1.automatedpayroll.model.*;
 import com.capstone1.automatedpayroll.model.enums.EmployeeType;
 import com.capstone1.automatedpayroll.repository.*;
-import jakarta.mail.MessagingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -160,12 +159,12 @@ public class PayrollServiceImpl {
         List<EmployeeModel> employees = employeeRepository.findAll();
 
         for (EmployeeModel employee : employees){
+            clearNonStationaryEarnings(employee.geteId(),startDate,endDate);
             List<AttendanceModel> attendances = attendanceRepository
                     .findByEmployee_EIdAndAttendanceDateBetween(employee.geteId(), startDate, endDate);
 
-            double nonStationarySnapshot = calculateNonStationaryEarnings(employee.geteId(),startDate,endDate);
-
             double grossPay = calculateGrossPay(employee,attendances,startDate,endDate);
+
             double totalDeductions = calculateTotalDeductions(employee.geteId(),grossPay);
             double netPay = calculateNetPay(employee,grossPay, startDate, endDate);
 
@@ -176,11 +175,8 @@ public class PayrollServiceImpl {
             payroll.setGrossPay(grossPay);
             payroll.setTotalDeductions(totalDeductions);
             payroll.setNetPay(netPay);
-            payroll.setNonStationaryEarnings(nonStationarySnapshot);
             payroll.setDateProcessed(LocalDate.now());
             payrollRepository.save(payroll);
-            clearNonStationaryEarnings(employee.geteId(),startDate,endDate);
-
         }
     }
 

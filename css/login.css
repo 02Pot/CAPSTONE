@@ -1,3 +1,7 @@
+html, body {
+    height: 100%;
+}
+
 body {
     margin: 0;
     font-family: Arial, sans-serif;
@@ -13,7 +17,9 @@ body {
 .logo {
     width: 120px;
 }
-
+.password-wrapper{
+    margin-bottom: 20px;
+}
 .header h1 {
     margin-top: 10px;
     font-size: 26px;

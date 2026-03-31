@@ -1,30 +1,25 @@
 package com.capstone1.automatedpayroll.service;
 
-import com.capstone1.automatedpayroll.dto.DeductionsDTO;
-import com.capstone1.automatedpayroll.dto.EmployeeDTO;
-import com.capstone1.automatedpayroll.mapper.EmployeeMapper;
-import com.capstone1.automatedpayroll.model.EmployeeModel;
-import com.capstone1.automatedpayroll.model.enums.EmployeeType;
-import com.capstone1.automatedpayroll.repository.DeductionsRepository;
-import com.capstone1.automatedpayroll.repository.EmployeeRepository;
-import com.capstone1.automatedpayroll.repository.PayrollRepository;
-import jakarta.persistence.EntityNotFoundException;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.stream.Collectors;
+import com.capstone1.automatedpayroll.dto.EmployeeDTO;
+import com.capstone1.automatedpayroll.mapper.EmployeeMapper;
+import com.capstone1.automatedpayroll.model.EmployeeModel;
+import com.capstone1.automatedpayroll.repository.EmployeeRepository;
+import com.capstone1.automatedpayroll.repository.PayrollRepository;
+
+import jakarta.persistence.EntityNotFoundException;
 
 @Service
 public class EmployeeServiceImpl {
 
     @Autowired
     private EmployeeRepository employeeRepository;
-    @Autowired
-    private DeductionsRepository deductionsRepository;
-    @Autowired
-    private DeductionsServiceImpl deductionsService;
     @Autowired
     private PayrollRepository payrollRepository;
 

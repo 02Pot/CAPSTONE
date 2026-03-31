@@ -11,7 +11,13 @@
 
 </head>
 <body>
-
+<script>
+    // JWT check
+    const token = localStorage.getItem("jwtToken");
+    if (!token) {
+        window.location.href = "login.html";
+    }
+</script>
 <div class="container">
 
 <div class="sidebar">
@@ -36,37 +42,39 @@
 </div>
 
 <div class="main-content">
+
 <div id="uploadView" class="card">
     <h2>Please import attendance to calculate</h2>
-    <!-- Hidden file input -->
-    <input type="file" id="attendanceFile" accept=".xlsx,.xls,.csv">
-    <button class="button" onclick="openAttendancePicker()">Import Attendance</button>
+    <label>
+        <input type="file" id="attendanceFile" accept=".xlsx,.xls,.csv" style="display: none;">
+        <button class="button" onclick="openAttendancePicker()">Import Attendance</button>
+    </label>
 </div>
 
-<!-- AFTER IMPORT -->
-<div id="statsView" class="card">
-    
+<div id="statsView" class="card" style="display: none;">
     <div>
         <div class="label">Processed Employee</div>
         <div class="value" id="processedVal">0</div>
     </div>
     <div>
         <div class="label">Failed to Process Employee</div>
-        <div class="value" id="failedVal">0 <span class="failed-dot"></span></div>
+        <div class="value" id="failedVal">0</div>
     </div>
     <div>
         <div class="label">Total Employee</div>
         <div class="value" id="totalVal">0</div>
     </div>
 
-    <div style="display:flex; flex-direction: column; gap:10px;">
-        <input type="file" id="attendanceFile" accept=".xlsx,.xls,.csv" style="display:none">
+    <div style="display:flex; flex-direction: row; gap:10px;">
         <button style="background: white; border: 1px solid black; color: black;"
-        class="button" onclick="openAttendancePicker()" disabled>
+                class="button" onclick="openAttendancePicker()">
             Import Attendance
         </button>
         <button class="button" onclick="sendEmail()">
             Send Payslip to Email
+        </button>
+        <button class="button" id="runPayrollBtn">
+            Run Payroll
         </button>
     </div>
 </div>
@@ -100,47 +108,7 @@
     </table>
 </div>
 
-
-<script>
-    document.getElementById("attendanceFile").addEventListener("change", function(event) {
-        let file = event.target.files[0];
-        if (!file) return;
-
-        let reader = new FileReader();
-
-        reader.onload = function(e) {
-            let data = new Uint8Array(e.target.result);
-            let workbook = XLSX.read(data, { type: "array" });
-
-            let sheet = workbook.Sheets[workbook.SheetNames[0]];
-
-            // Convert sheet to JSON
-            let json = XLSX.utils.sheet_to_json(sheet);
-
-            let processed = json[0]["Processed"] || 0;
-            let failed    = json[0]["Failed"] || 0;
-            let total     = json[0]["Total"] || 0;
-
-            // Update UI
-            document.getElementById("processedVal").innerText = processed;
-            document.getElementById("failedVal").innerHTML = failed;
-            document.getElementById("totalVal").innerText = total;
-
-            document.getElementById("uploadView").style.display = "none";
-            document.getElementById("statsView").style.display = "flex";
-
-        };
-
-        reader.readAsArrayBuffer(file);
-    });
-
-    // Button triggers file dialog
-    function openAttendancePicker() {
-        document.getElementById("attendanceFile").click();
-
-}
-
-</script>
+<script src="../javascript/attendance.js"></script>
 <script src="../javascript/dialog.js"></script>
 <script src="../javascript/table.js"></script>
 </body>
