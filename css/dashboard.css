@@ -1,8 +1,13 @@
+<<<<<<< Updated upstream
         .container {
+=======
+  .container {
+>>>>>>> Stashed changes
         display: flex;
         height: 100vh;
         }
         .main-content {
+<<<<<<< Updated upstream
         flex: 1;
         padding: 30px;
         }
@@ -12,6 +17,23 @@
             padding: 24px;
         }
         .stat-grid {
+=======
+        overflow: hidden; 
+        flex: 1;
+        padding: 20px;
+        }
+        .green-section {
+            display: flex;          
+            flex-direction: column;  
+            background-color: rgb(210, 243, 210);
+            flex: 1;
+            padding: 30px;
+            padding-bottom: 100%;
+            overflow: hidden;
+        }
+        .stat-grid {
+            
+>>>>>>> Stashed changes
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 16px;
@@ -31,20 +53,39 @@
             color: #333;
             margin-bottom: 10px;
         }
+<<<<<<< Updated upstream
         .stat-card-header i { color: #555; font-size: 14px; }
+=======
+        .stat-card-header i { color: #555; font-size: 14px;  }
+>>>>>>> Stashed changes
         .stat-main {
             font-size: 22px;
             font-weight: 700;
             color: #2e7d2e;
             margin-bottom: 4px;
+<<<<<<< Updated upstream
+=======
+            
+>>>>>>> Stashed changes
         }
         .stat-sub { font-size: 13px; color: #555; }
         .stat-sub span { color: #e05a00; font-weight: 600; }
         
         .chart-card {
+<<<<<<< Updated upstream
             background: #fff;
             padding: 20px 22px;
             border: 1px solid #0e0d0dce;
+=======
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            min-height: 300px;
+            background: #fff;
+            padding: 20px 22px;
+            border: 1px solid #0e0d0dce;
+            padding-bottom: 70px;
+>>>>>>> Stashed changes
         }
         .chart-card-header {
             display: flex;
@@ -55,18 +96,31 @@
             gap: 10px;
         }
         .chart-card-title {
+<<<<<<< Updated upstream
             font-size: 14px;
+=======
+            font-size: 17px;
+>>>>>>> Stashed changes
             font-weight: 700;
             color: #1a3a1a;
         }
         
         .chart-inner {
+<<<<<<< Updated upstream
+=======
+            flex: 1;
+            min-height: 0;
+>>>>>>> Stashed changes
             display: grid;
             grid-template-columns: 1fr 220px;
             gap: 20px;
             align-items: start;
         }
+<<<<<<< Updated upstream
         .chart-wrapper { position: relative; width: 100%; height: 300px; }
+=======
+        .chart-wrapper { position: relative; width: 100%; height: 500px; }
+>>>>>>> Stashed changes
      
         @media (max-width: 820px) {
             .stat-grid { grid-template-columns: 1fr 1fr; }

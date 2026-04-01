@@ -12,7 +12,11 @@
 const baseData = {
     labels: ['1st Year', '2nd Year', '3rd Year', '4th Year'],
     BSHRM: [25, 80, 50, 100],
+<<<<<<< Updated upstream
     BSIT:  [100, 60, 80, 80],
+=======
+    BSIT:  [100, 60, 80, 80],  
+>>>>>>> Stashed changes
     BSOA:  [65, 80, 70, 20]
 };
 
