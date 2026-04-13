@@ -53,14 +53,15 @@ public class AttendanceServiceImpl {
                 EmployeeModel employee = employeeRepository.findById(employeeId)
                         .orElseThrow(() -> new RuntimeException("Employee not found: " + employeeId));
 
+                if (attendanceDate == null || timeIn == null || timeOut == null) {
+                    System.out.println("Skipping row " + rowIndex + " because of missing entry");
+                    continue;
+                }
+
                 boolean exists = attendanceRepository.existsByEmployee_EIdAndAttendanceDate(employeeId,attendanceDate);
 
-                //NEED ID PARA SA BASIC PAY TO LOGS
                 if (exists){
                     System.out.println("Duplicate Entry skipping");
-                    continue;
-                } else if (attendanceDate == null || timeIn == null || timeOut == null) {
-                    System.out.println("Skipping row" + rowIndex + "because of missing entry");
                     continue;
                 }
 

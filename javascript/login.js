@@ -23,7 +23,7 @@ document.getElementById("login-form").addEventListener("submit", async function(
         if (response.ok) {
             const token = data.token;
             localStorage.setItem("jwtToken", token);
-            window.location.href = "/index.html";
+            window.location.href = "../index.html";
         } else {
             document.getElementById("message").textContent = data.error || "Login failed";
         }

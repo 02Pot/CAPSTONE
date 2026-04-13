@@ -27,6 +27,8 @@ public class DeductionsModel {
     @JoinColumn(name = "userId")
     private EmployeeModel employee;
 
+    public DeductionsModel() {}
+
     public DeductionsModel(Long deductionId, String deductionName, Double deductionAmount, boolean stationary
                         ,double maxAmount,double deductionPercentage ,EmployeeModel employee) {
         this.deductionId = deductionId;

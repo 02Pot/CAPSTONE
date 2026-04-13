@@ -3,7 +3,13 @@ package com.capstone1.automatedpayroll.service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.capstone1.automatedpayroll.dto.PayrollDTO;
+import com.capstone1.automatedpayroll.mapper.PayrollMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
@@ -23,11 +29,9 @@ public class EmployeeServiceImpl {
     @Autowired
     private PayrollRepository payrollRepository;
 
-    public List<EmployeeDTO> findAllEmployees(){
-        return employeeRepository.findAll()
-                .stream()
-                .map(emp -> EmployeeMapper.mapToEmployeeDTO(emp,payrollRepository))
-                .collect(Collectors.toList());
+    public Page<EmployeeDTO> getAllEmployee(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return employeeRepository.findAll(pageable).map(employee -> EmployeeMapper.mapToEmployeeDTO(employee,payrollRepository));
     }
 
     public EmployeeDTO getEmployee(Long employeeId){

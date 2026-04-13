@@ -45,28 +45,31 @@ body {
 }
 
 .login-container p {
-    margin: 5px 0 20px;
+    margin: 5px 0 50px;
     font-size: 14px;
     color: #666;
+}
+.login-form {
+    width: 100%;
 }
 
 /* INPUTS */
 label {
     display: block;
     text-align: left;
-    font-size: 14px;
+    font-size: 16px;
     margin: 10px 0 5px;
 }
 
 input {
-    
-    width: 355px;
+    width: 100%;
     height: 30px;
-    padding: 2px;
+    padding: 5px 0;
     border: 1px solid #ccc;
     border-radius: 8px;
     font-size: 14px;
     outline: none;
+    margin-bottom: 10px;
 }
 
 input:focus {

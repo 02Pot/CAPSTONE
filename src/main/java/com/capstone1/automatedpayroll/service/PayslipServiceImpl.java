@@ -99,6 +99,7 @@ public class PayslipServiceImpl {
             .sum();
 
         PayslipDTO dto = new PayslipDTO();
+        dto.setId(emp.geteId());
         dto.setEmployeeName(emp.getEmployeeFirstName()+emp.getEmployeeLastName());
         dto.setDateOfJoining(emp.getDateOfHire());
         dto.setEmployeeType(emp.getEmployeeEmploymentType().name());

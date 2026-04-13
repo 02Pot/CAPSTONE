@@ -1,19 +1,24 @@
 package com.capstone1.automatedpayroll.service;
 
-import com.capstone1.automatedpayroll.dto.PayslipDTO;
-import com.capstone1.automatedpayroll.model.*;
-import com.capstone1.automatedpayroll.repository.EmployeeRepository;
-import com.capstone1.automatedpayroll.repository.PayrollRepository;
-import jakarta.mail.MessagingException;
-import jakarta.mail.internet.MimeMessage;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Map;
+import com.capstone1.automatedpayroll.dto.PayslipDTO;
+import com.capstone1.automatedpayroll.model.EmployeeModel;
+import com.capstone1.automatedpayroll.model.MailModel;
+import com.capstone1.automatedpayroll.model.PayrollModel;
+import com.capstone1.automatedpayroll.repository.EmployeeRepository;
+import com.capstone1.automatedpayroll.repository.PayrollRepository;
+
+import jakarta.mail.MessagingException;
+import jakarta.mail.internet.MimeMessage;
 
 @Service
 public class MailService {
@@ -30,12 +35,38 @@ public class MailService {
     @Autowired
     private PayslipServiceImpl payslipService;
 
-    public void sendMail(MailModel mailModel, Long employeeId) throws MessagingException {
+    public void sendAllMail(){
+        List<EmployeeModel> employees = employeeRepository.findAll();
+        List<String> failed = new ArrayList<>();
+
+        for(EmployeeModel employee : employees){
+
+            if(employee.getEmployeeEmail() == null || employee.getEmployeeEmail().isBlank()){
+                failed.add("ID " + employee.geteId() + " (noemail)");
+                continue;
+            }
+            boolean hasPayroll = payrollRepository.findTopByEmployee_EIdOrderByDateProcessedDesc(employee.geteId()).isPresent();
+            if(!hasPayroll){
+                failed.add(employee.getEmployeeFirstName() + employee.getEmployeeLastName() + " (no payroll record)");
+                continue;
+            }
+
+            try {
+            sendMail(employee.geteId());
+            } catch (MessagingException e) {
+                failed.add(employee.getEmployeeLastName() + " (mail error: " + e.getMessage() + ")");
+            } catch (Exception e) {
+                failed.add(employee.getEmployeeLastName() + " (error: " + e.getMessage() + ")");
+            }
+        }
+        if (!failed.isEmpty()) {
+            System.err.println("Failed to send payslip to: " + failed);
+        }
+    }
+
+    public void sendMail(Long employeeId) throws MessagingException {
         EmployeeModel employee = employeeRepository.findById(employeeId).orElseThrow();
         PayrollModel payroll = payrollRepository.findTopByEmployee_EIdOrderByDateProcessedDesc(employeeId).orElseThrow();
-
-        mailModel.setEmployee(employee);
-
 
         PayslipDTO payslip = payslipService.generatePayslip(payroll.getId());
 
@@ -72,16 +103,15 @@ public class MailService {
         }
 
         payroll.setEmployee(employee);
-        mailModel.setPayrollModel(payroll);
 
         MimeMessage message = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message,true);
         helper.setFrom(fromMail);
 
-        helper.setTo(mailModel.getEmployee().getEmployeeEmail());
-        helper.setSubject("Payslip Email - " + mailModel.getEmployee().getEmployeeLastName() + " " + mailModel.getEmployee().getEmployeeFirstName());
+        helper.setTo(employee.getEmployeeEmail());
+        helper.setSubject("Payslip Email - " + employee.getEmployeeLastName() + " " + employee.getEmployeeFirstName());
 
-        EmployeeModel emp = mailModel.getEmployee();
+        EmployeeModel emp = employee;
 
         String htmlContent = """
              <html>

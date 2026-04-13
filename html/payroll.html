@@ -4,10 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Automated Payroll</title>
-    <link rel="stylesheet" href="/css/employee.css">
-    <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="/css/table.css">
+    <link rel="stylesheet" href="../css/employee.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/table.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
 </head>
 <body>
@@ -17,33 +18,55 @@
     if (!token) {
         window.location.href = "login.html";
     }
+    function handleLogOut(){
+    localStorage.removeItem('token')
+    sessionStorage.clear();
+    window.location.href = "./login.html"
+}
 </script>
 <div class="container">
 
 <div class="sidebar">
-    <div class="logo">
-        <img src="/assets/logo-ptc.png" alt="Logo">
+        <div class="logo">
+            <img src="../assets/logo-ptc.png" alt="Logo">
+            <span>PATEROS TECHNOLOGICAL COLLEGE</span>
+        </div>
+
+        <p class="menu-title">Menu</p>
+
+        <div class="menu-list">
+            <a href="../index.html" class="menu-item">
+                <i class="fa-solid fa-house fa-lg" style="color: #555;"></i>
+                <span>DASHBOARD</span>
+            </a>
+            <a href="../html/payroll.html" class="menu-item">
+                <i class="fa-solid fa-money-bill fa-lg" style="color: #555;"></i>
+                <span>PAYROLL</span>
+            </a>
+            <a href="../html/employees.html" class="menu-item">
+                <i class="fa-solid fa-user fa-lg" style="color: #555;"></i>
+                <span>EMPLOYEES</span>
+            </a>
+            <a href="../html/reports.html" class="menu-item">
+                <i class="fa-solid fa-chart-area fa-lg" style="color: #555;"></i>
+                <span>REPORTS</span>
+            </a>
+        </div>
     </div>
-    <p class="menu-title">Menu</p>
-    <div class="menu-list">
-        <a href="../index.html" class="menu-item">
-            <span class="icon">📊</span> DASHBOARD
-        </a>
-        <a href="../html/payroll.html" class="menu-item">
-            <span class="icon">📊</span> PAYROLL
-        </a>
-        <a href="../html/employees.html" class="menu-item">
-            <span class="icon">👥</span> EMPLOYEES
-        </a>
-        <a href="../html/reports.html" class="menu-item">
-            <span class="icon">📁</span> REPORTS
-        </a>
-    </div>
-</div>
+
 
 <div class="main-content">
-
-<div id="uploadView" class="card">
+    
+  <div class="header">
+      <h2>PAYROLL</h2>
+      <div class="profile">
+          <img src="../assets/logo-ptc.png"></img>
+          <p>Hello, varon</p>
+            <i class="fa-solid fa-arrow-right-from-bracket fa-lg" onclick="handleLogOut()"></i>
+      </div>
+    </div>
+    <div class="content">
+        <div id="uploadView" class="card">
     <h2>Please import attendance to calculate</h2>
     <label>
         <input type="file" id="attendanceFile" accept=".xlsx,.xls,.csv" style="display: none;">
@@ -70,8 +93,8 @@
                 class="button" onclick="openAttendancePicker()">
             Import Attendance
         </button>
-        <button class="button" onclick="sendEmail()">
-            Send Payslip to Email
+        <button class="button" id="sendAllEmail" onclick="sendAllPayslipEmails()">
+            Send Payslip to All
         </button>
         <button class="button" id="runPayrollBtn">
             Run Payroll
@@ -81,9 +104,9 @@
 
   <!-- TABLE SECTION -->
 <div class="emp-table-wrapper">
-<div id="dialog-container">
+    <div id="dialog-container">
 
-</div>
+    </div>
 
     <div class="emp-table-header">
         <h2 class="emp-table-title">Payroll details</h2>
@@ -108,8 +131,10 @@
     </table>
 </div>
 
+    </div>
+
 <script src="../javascript/attendance.js"></script>
 <script src="../javascript/dialog.js"></script>
-<script src="../javascript/table.js"></script>
+<script src="../javascript/email.js"></script>
 </body>
 </html>

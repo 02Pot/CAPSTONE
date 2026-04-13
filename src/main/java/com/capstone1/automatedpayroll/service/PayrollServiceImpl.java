@@ -1,16 +1,24 @@
 package com.capstone1.automatedpayroll.service;
 
 import com.capstone1.automatedpayroll.dto.EarningsDTO;
+import com.capstone1.automatedpayroll.dto.PayrollDTO;
 import com.capstone1.automatedpayroll.helper.PayrollDateUtils;
+import com.capstone1.automatedpayroll.mapper.PayrollMapper;
 import com.capstone1.automatedpayroll.model.*;
 import com.capstone1.automatedpayroll.model.enums.EmployeeType;
 import com.capstone1.automatedpayroll.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 public class PayrollServiceImpl {
@@ -100,7 +108,8 @@ public class PayrollServiceImpl {
         }
         double contribution = monthlySalary * rate;
         double monthlyDeduction = Math.min(contribution,200.0);
-        return monthlyDeduction / 2;
+        double result = monthlyDeduction / 2;
+        return Math.round(result * 100.0)/ 100.0;
     }
 
     public double calculatePhilHealth(double monthlySalary){
@@ -180,8 +189,28 @@ public class PayrollServiceImpl {
         }
     }
 
+    public List<PayrollDTO> getPayrollByCutoff(){
+        Map.Entry<LocalDate,LocalDate> cutOff = payrollDateUtils.getCutOffPeriod(LocalDate.now());
+        LocalDate startDate = cutOff.getKey();
+        LocalDate endDate = cutOff.getValue();
 
+        List<PayrollModel> payrolls = payrollRepository.findByStartDateAndEndDate(startDate, endDate);
+        if (!payrolls.isEmpty()) {
+            return payrolls.stream().map(PayrollMapper::mapToPayrollDTO).toList();
+        }
 
+        PayrollDTO placeholder = new PayrollDTO();
+        placeholder.setStartDate(startDate);
+        placeholder.setEndDate(endDate);
+        placeholder.setDateProcessed(null);
+
+        return List.of(placeholder);
+    }
+
+    public Page<PayrollDTO> getAllPayroll(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by("dateProcessed").descending());
+        return payrollRepository.findAll(pageable).map(PayrollMapper::mapToPayrollDTO);
+    }
 
 //    @Scheduled(cron = "0 0 0 * * ?") // runs every day at midnight //test
 //    public void runScheduledPayroll() {

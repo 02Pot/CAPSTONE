@@ -9,6 +9,8 @@ import java.util.Map;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class PayslipDTO {
 
+
+    private Long id;
     private String employeeName;
     private LocalDate dateOfJoining;
     private String employeeType;
@@ -22,6 +24,13 @@ public class PayslipDTO {
 
     private List<Map<String, Object>> earnings; // name + amount
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
     public String getEmployeeName() {
         return employeeName;
     }

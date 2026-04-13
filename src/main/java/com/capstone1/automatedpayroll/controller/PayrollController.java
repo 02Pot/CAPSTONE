@@ -1,16 +1,16 @@
 package com.capstone1.automatedpayroll.controller;
 
 
+import java.time.LocalDate;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import com.capstone1.automatedpayroll.dto.PayrollDTO;
+import com.capstone1.automatedpayroll.model.PayrollModel;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.data.domain.Page;
+import org.springframework.web.bind.annotation.*;
 
 import com.capstone1.automatedpayroll.dto.PayslipDTO;
 import com.capstone1.automatedpayroll.service.PayrollServiceImpl;
@@ -36,6 +36,18 @@ public class PayrollController {
         response.put("message", "Payroll succesfully Processed");
 
         return response;
+    }
+
+    @GetMapping("/cutoff")
+    public List<PayrollDTO> getPayrollByCutoff(){
+        return payrollService.getPayrollByCutoff();
+    }
+
+    @GetMapping("/all")
+    public Page<PayrollDTO> getAllPayroll(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+        return payrollService.getAllPayroll(page,size);
     }
 
     @GetMapping("/{payrollId}")

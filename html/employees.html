@@ -4,47 +4,66 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Employees</title>
-    <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="/css/employee.css">
-    <link rel="stylesheet" href="/css/employee-details.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/employee.css">
+    <link rel="stylesheet" href="../css/employee-details.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
 </head>
 <body>
 <script>
-    // JWT check
     const token = localStorage.getItem("jwtToken");
     if (!token) {
         window.location.href = "login.html";
     }
+    function handleLogOut(){
+    localStorage.removeItem('token')
+    sessionStorage.clear();
+    window.location.href = "./login.html"
+}
 </script>
 <div class="container">
 <div class="sidebar">
-  <div class="logo">
-    <img src="/assets/logo-ptc.png" alt="Logo">
-  </div>
-  <p class="menu-title">Menu</p>
-  <div class="menu-list">
-    <a href="../index.html" class="menu-item">
-      <span class="icon">📊</span> DASHBOARD
-    </a>
-    <a href="../html/payroll.html" class="menu-item">
-      <span class="icon">📊</span> PAYROLL
-    </a>
-    <a href="../html/employees.html" class="menu-item">
-      <span class="icon">👥</span> EMPLOYEES
-    </a>
-    <a href="../html/reports.html" class="menu-item">
-      <span class="icon">📁</span> REPORTS
-    </a>
-  </div>
-</div>
+        <div class="logo">
+            <img src="../assets/logo-ptc.png" alt="Logo">
+            <span>PATEROS TECHNOLOGICAL COLLEGE</span>
+        </div>
+
+        <p class="menu-title">Menu</p>
+
+        <div class="menu-list">
+            <a href="../index.html" class="menu-item">
+                <i class="fa-solid fa-house fa-lg" style="color: #555;"></i>
+                <span>DASHBOARD</span>
+            </a>
+            <a href="../html/payroll.html" class="menu-item">
+                <i class="fa-solid fa-money-bill fa-lg" style="color: #555;"></i>
+                <span>PAYROLL</span>
+            </a>
+            <a href="../html/employees.html" class="menu-item">
+                <i class="fa-solid fa-user fa-lg" style="color: #555;"></i>
+                <span>EMPLOYEES</span>
+            </a>
+            <a href="../html/reports.html" class="menu-item">
+                <i class="fa-solid fa-chart-area fa-lg" style="color: #555;"></i>
+                <span>REPORTS</span>
+            </a>
+        </div>
+    </div>
+
 
 <div class="main-content">
-  <div class="class">
-    <h1>Employees</h1>
-  </div>
-  <div class="button-group">
+
+  <div class="header">
+      <h2>EMPLOYEES</h2>
+      <div class="profile">
+          <img src="../assets/logo-ptc.png"></img>
+          <p>Hello, varon</p>
+            <i class="fa-solid fa-arrow-right-from-bracket fa-lg" onclick="handleLogOut()"></i>
+      </div>
+    </div>
+  <div class="content">
+<div class="button-group">
     <button id="addEmployeeBtn" class="btn-add">
       <span>Add Employee Records</span>
       <i class="fas fa-plus"></i>
@@ -347,6 +366,8 @@ class="modal" id="addModal" aria-hidden="true" role="dialog" aria-labelledby="ad
       </div>
     </div>
 
+  </div>
+  
 <script src="../javascript/employee.js"></script>
 
 </body>

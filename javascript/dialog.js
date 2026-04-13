@@ -17,10 +17,10 @@ async function showPayrollDialog(payrollId) {
         }
 
         const payslip = await res.json();
-
         console.log(payslip);
         
         //alert(alert.PopUp)
+        window.payrollDialog.dataset.employeeId = payslip.id;
 
         const earnBody = window.payrollDialog.querySelector("#earnings-body");
         earnBody.innerHTML = "";
@@ -97,12 +97,22 @@ function loadDialog() {
 
                 if (!inside) dialog.close();
             });
+        const sendBtn = dialog.querySelector("#dialog-button-email");
+        sendBtn.addEventListener("click", () => {
+            const employeeId = dialog.dataset.employeeId;
 
-            window.payrollDialog = dialog; // Make it globally accessible
+            if (!employeeId) {
+                console.error("No employeeId found");
+                return;
+            }
+
+            sendPayslipEmail(employeeId);
+        });
+            window.payrollDialog = dialog;
         });
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-    loadDialog();  // load dialog
+    loadDialog();
     loadIntoTable("http://localhost:8081/api/employee", document.querySelector(".emp-table"));
 });
