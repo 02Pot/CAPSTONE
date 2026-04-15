@@ -3,6 +3,7 @@ package com.capstone1.automatedpayroll.config;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -24,7 +25,10 @@ public class SecurityConfig {
 
     @Autowired
     private JwtFilter jwtFilter;
-    
+
+    @Value("${cors.allowed-origins}")
+    private String allowedOrigins;
+
     @Bean
     public PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
@@ -61,7 +65,7 @@ public class SecurityConfig {
     @Bean
     UrlBasedCorsConfigurationSource corsConfigurationSource() {
 	CorsConfiguration configuration = new CorsConfiguration();
-	configuration.setAllowedOrigins(Arrays.asList("http://localhost:5500","http://127.0.0.1:5500"));
+	configuration.setAllowedOrigins(Arrays.asList("http://localhost:5500","http://127.0.0.1:5500",allowedOrigins));
 	configuration.setAllowedMethods(Arrays.asList("GET","POST","PUT","DELETE"));
     configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type"));
     configuration.setAllowCredentials(true);
