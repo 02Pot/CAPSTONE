@@ -57,7 +57,7 @@
   <div class="header">
       <h2>EMPLOYEES</h2>
       <div class="profile">
-          <img src="../assets/logo-ptc.png"></img>
+          <img src="../assets/logo-ptc.png" alt="Profile Image">
           <p>Hello, varon</p>
             <i class="fa-solid fa-arrow-right-from-bracket fa-lg" onclick="handleLogOut()"></i>
       </div>
@@ -169,16 +169,18 @@ class="modal" id="addModal" aria-hidden="true" role="dialog" aria-labelledby="ad
           </select>
         </label>
         <label>Date of Hire
-          <input type="date" id="editDateofHire" name="dateofhire" required
-          />
+          <input type="date" id="editDateofHire" name="dateofhire" required/>
       </div>
 
       <!-- Department -->
       <div class="form-row" required>
         <label
           >Department
-          <select name="department">
+          <!-- Hide first value option para di mag show sa select -->
+           <select>
+            <option value="" disabled selected hidden>Select Department</option>
             <option>Maintenance</option>
+            <option>Instructor</option>
             <option>Development</option>
             <option>IT Support</option>
             <option>Finance</option>
