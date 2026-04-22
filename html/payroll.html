@@ -4,181 +4,112 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Automated Payroll</title>
-    <link rel="stylesheet" href="/css/table.css">
+    <link rel="stylesheet" href="/css/employee.css">
     <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/table.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+
 </head>
 <body>
-
+<script>
+    // JWT check
+    const token = localStorage.getItem("jwtToken");
+    if (!token) {
+        window.location.href = "login.html";
+    }
+</script>
 <div class="container">
 
 <div class="sidebar">
     <div class="logo">
         <img src="/assets/logo-ptc.png" alt="Logo">
     </div>
-
     <p class="menu-title">Menu</p>
-
     <div class="menu-list">
-
-        <a href="../index.html" class="menu-item">
+        <a href="../html/dashboard.html" class="menu-item">
             <span class="icon">📊</span> DASHBOARD
         </a>
-
         <a href="../html/payroll.html" class="menu-item">
             <span class="icon">📊</span> PAYROLL
         </a>
-
         <a href="../html/employees.html" class="menu-item">
             <span class="icon">👥</span> EMPLOYEES
         </a>
-
         <a href="../html/reports.html" class="menu-item">
             <span class="icon">📁</span> REPORTS
         </a>
-        
-
     </div>
 </div>
+
 <div class="main-content">
 
-
-<table class="payroll-table">
-    <thead>
-        <tr>
-            <th>Employee Name</th>
-            <th>Email</th>
-            <th>Contact</th>
-            <th>Type</th>
-            <th>Payslip</th>
-        </tr>
-    </thead>
-
-    <tbody>
-        <tr>
-            <td>Jhomar Varon</td>
-            <td>varonjhomar@paterostechnologicalcollege.edu.ph</td>
-            <td>09276436271</td>
-            <td>Regular</td>
-            <td><a href="#" class="view-link">View</a></td>
-        </tr>
-
-        <tr>
-            <td>Richard Mondejar</td>
-            <td>mondejarrichard@paterostechnologicalcollege.edu.ph</td>
-            <td>09826483561</td>
-            <td>Regular</td>
-            <td><a href="#" class="view-link">View</a></td>
-        </tr>
-
-        <tr>
-            <td>Aaron Nacion</td>
-            <td>nacionaaron@paterostechnologicalcollege.edu.ph</td>
-            <td>09526432526</td>
-            <td>Regular</td>
-            <td><a href="#" class="view-link">View</a></td>
-        </tr>
-
-        <tr>
-            <td>Kier Aldwin Ibay</td>
-            <td>ibaykieraldwin@paterostechnologicalcollege.edu.ph</td>
-            <td>09829463714</td>
-            <td>Regular</td>
-            <td><a href="#" class="view-link">View</a></td>
-        </tr>
-
-        <tr>
-            <td>John Lee Valencia</td>
-            <td>valenciajohnlee@paterostechnologicalcollege.edu.ph</td>
-            <td>09829457361</td>
-            <td>Regular</td>
-            <td><a href="#" class="view-link">View</a></td>
-        </tr>
-        
-        <tr>
-            <td>Maria Santos</td>
-            <td>mariasantos@paterostechnologicalcollege.edu.ph</td>
-            <td>09182345671</td>
-            <td>Regular</td>
-            <td><a href="#" class="view-link">View</a></td>
-        </tr>
-
-        <tr>
-            <td>Carlos Ramirez</td>
-            <td>carlosramirez@paterostechnologicalcollege.edu.ph</td>
-            <td>09987654321</td>
-            <td>Regular</td>
-            <td><a href="#" class="view-link">View</a></td>
-        </tr>
-
-        <tr>
-            <td>Angela Cruz</td>
-            <td>angelacruz@paterostechnologicalcollege.edu.ph</td>
-            <td>09234567891</td>
-            <td>Regular</td>
-            <td><a href="#" class="view-link">View</a></td>
-        </tr>
-
-        <tr>
-            <td>Michael Lorenzo</td>
-            <td>michaellorenzo@paterostechnologicalcollege.edu.ph</td>
-            <td>09351247896</td>
-            <td>Regular</td>
-            <td><a href="#" class="view-link">View</a></td>
-        </tr>
-
-        <tr>
-            <td>Sophia Dela Peña</td>
-            <td>sophiadelapena@paterostechnologicalcollege.edu.ph</td>
-            <td>09786423145</td>
-            <td>Regular</td>
-            <td><a href="#" class="view-link">View</a></td>
-        </tr>
-
-        <tr>
-            <td>Mark Anthony Villanueva</td>
-            <td>markvillanueva@paterostechnologicalcollege.edu.ph</td>
-            <td>09563478210</td>
-            <td>Regular</td>
-            <td><a href="#" class="view-link">View</a></td>
-        </tr>
-
-        <tr>
-            <td>Katrina Gomez</td>
-            <td>katrinagomez@paterostechnologicalcollege.edu.ph</td>
-            <td>09472856139</td>
-            <td>Regular</td>
-            <td><a href="#" class="view-link">View</a></td>
-        </tr>
-
-        <tr>
-            <td>Jerome Castillo</td>
-            <td>jeromecastillo@paterostechnologicalcollege.edu.ph</td>
-            <td>09175648293</td>
-            <td>Regular</td>
-            <td><a href="#" class="view-link">View</a></td>
-        </tr>
-
-        <tr>
-            <td>Alyssa Tan</td>
-            <td>alyssatan@paterostechnologicalcollege.edu.ph</td>
-            <td>09263948712</td>
-            <td>Regular</td>
-            <td><a href="#" class="view-link">View</a></td>
-        </tr>
-
-        <tr>
-            <td>Raymond Bautista</td>
-            <td>raymondbautista@paterostechnologicalcollege.edu.ph</td>
-            <td>09384721569</td>
-            <td>Regular</td>
-            <td><a href="#" class="view-link">View</a></td>
-        </tr>
-
-    </tbody>
-</table>
-</div>
+<div id="uploadView" class="card">
+    <h2>Please import attendance to calculate</h2>
+    <label>
+        <input type="file" id="attendanceFile" accept=".xlsx,.xls,.csv" style="display: none;">
+        <button class="button" onclick="openAttendancePicker()">Import Attendance</button>
+    </label>
 </div>
 
-<script src="/javascript/script.js"></script>
+<div id="statsView" class="card" style="display: none;">
+    <div>
+        <div class="label">Processed Employee</div>
+        <div class="value" id="processedVal">0</div>
+    </div>
+    <div>
+        <div class="label">Failed to Process Employee</div>
+        <div class="value" id="failedVal">0</div>
+    </div>
+    <div>
+        <div class="label">Total Employee</div>
+        <div class="value" id="totalVal">0</div>
+    </div>
+
+    <div style="display:flex; flex-direction: row; gap:10px;">
+        <button style="background: white; border: 1px solid black; color: black;"
+                class="button" onclick="openAttendancePicker()">
+            Import Attendance
+        </button>
+        <button class="button" onclick="sendEmail()">
+            Send Payslip to Email
+        </button>
+        <button class="button" id="runPayrollBtn">
+            Run Payroll
+        </button>
+    </div>
+</div>
+
+  <!-- TABLE SECTION -->
+<div class="emp-table-wrapper">
+<div id="dialog-container">
+
+</div>
+
+    <div class="emp-table-header">
+        <h2 class="emp-table-title">Payroll details</h2>
+        <div class="emp-search-box">
+            <input type="text" placeholder="Search employee">
+        </div>
+    </div>
+
+    <div class="emp-divider"></div>
+    <table class="emp-table">
+        <thead>
+            <tr>
+                <th>Employee Name</th>
+                <th>Email</th>
+                <th>Contact Number</th>
+                <th>Type</th>
+                <th>Payslip</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+</div>
+
+<script src="../javascript/attendance.js"></script>
+<script src="../javascript/dialog.js"></script>
+<script src="../javascript/table.js"></script>
 </body>
 </html>
